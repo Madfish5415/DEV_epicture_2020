@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:epicture/imgur/exception.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter_web_auth/flutter_web_auth.dart';
 import 'package:http/http.dart' as http;
 
@@ -10,10 +11,13 @@ class ImgurClient {
   static final String host = "api.imgur.com";
 
   static Future<String> login() {
-    final Uri requestUri = _uri("/oauth2/authorize", {
-      "client_id": id,
-      "response_type": "token",
-    });
+    final Uri requestUri = _uri(
+      endpoint: "/oauth2/authorize",
+      queryParameters: {
+        "client_id": id,
+        "response_type": "token",
+      },
+    );
 
     return FlutterWebAuth.authenticate(
       url: requestUri.toString(),
@@ -21,8 +25,8 @@ class ImgurClient {
     );
   }
 
-  static Future<Map<String, dynamic>> delete(
-    String endpoint, {
+  static Future<Map<String, dynamic>> delete({
+    @required String endpoint,
     Map<String, dynamic> queryParameters,
     String token,
   }) {
@@ -36,8 +40,8 @@ class ImgurClient {
     );
   }
 
-  static Future<Map<String, dynamic>> get(
-    String endpoint, {
+  static Future<Map<String, dynamic>> get({
+    @required String endpoint,
     Map<String, dynamic> queryParameters,
     String token,
   }) {
@@ -51,8 +55,8 @@ class ImgurClient {
     );
   }
 
-  static Future<Map<String, dynamic>> post(
-    String endpoint, {
+  static Future<Map<String, dynamic>> post({
+    @required String endpoint,
     Map<String, dynamic> queryParameters,
     Map<String, dynamic> body,
     String token,
@@ -67,8 +71,8 @@ class ImgurClient {
     );
   }
 
-  static Future<Map<String, dynamic>> postMultipart(
-    String endpoint, {
+  static Future<Map<String, dynamic>> postMultipart({
+    @required String endpoint,
     Map<String, dynamic> queryParameters,
     Map<String, dynamic> body,
     String field,
@@ -95,7 +99,7 @@ class ImgurClient {
   }
 
   static Future<Map<String, dynamic>> _request({
-    String endpoint,
+    @required String endpoint,
     Map<String, dynamic> queryParameters,
     Future<http.Response> function({
       Uri uri,
@@ -105,8 +109,11 @@ class ImgurClient {
   }) async {
     try {
       final http.Response response = await function(
-        uri: _uri(endpoint, queryParameters),
-        headers: _headers(token),
+        uri: _uri(
+          endpoint: endpoint,
+          queryParameters: queryParameters,
+        ),
+        headers: _headers(token: token),
       );
 
       return _decode(response);
@@ -115,7 +122,10 @@ class ImgurClient {
     }
   }
 
-  static Uri _uri(String endpoint, Map<String, dynamic> queryParameters) {
+  static Uri _uri({
+    @required String endpoint,
+    Map<String, dynamic> queryParameters,
+  }) {
     return Uri.https(
       host,
       endpoint,
@@ -123,11 +133,9 @@ class ImgurClient {
     );
   }
 
-  static Map<String, String> _headers(String token) {
+  static Map<String, String> _headers({@required String token}) {
     return {
-      "authorization": (token != null)
-          ? "Bearer $token"
-          : "Client-ID $id",
+      "authorization": (token != null) ? "Bearer $token" : "Client-ID $id",
     };
   }
 

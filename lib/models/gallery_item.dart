@@ -3,16 +3,16 @@ import 'package:epicture/models/gallery_tag.dart';
 import 'package:epicture/models/image.dart';
 import 'package:flutter/foundation.dart';
 
-class GalleryModel {
-  final dynamic item;
+class GalleryItemModel {
+  final dynamic child;
   final int favorites;
   final int ups;
   final int downs;
   final int score;
   final List<GalleryTagModel> tags;
 
-  GalleryModel({
-    @required this.item,
+  GalleryItemModel({
+    @required this.child,
     @required this.favorites,
     @required this.ups,
     @required this.downs,
@@ -20,8 +20,8 @@ class GalleryModel {
     this.tags,
   });
 
-  factory GalleryModel.fromJson(Map<String, dynamic> json) {
-    final dynamic item = (json["is_album"])
+  factory GalleryItemModel.fromJson(Map<String, dynamic> json) {
+    final dynamic child = (json["is_album"])
         ? AlbumModel.fromJson(json)
         : ImageModel.fromJson(json);
     final List<Map<String, dynamic>> tagJsonList = json["tags"];
@@ -29,8 +29,8 @@ class GalleryModel {
         .map((tagJson) => GalleryTagModel.fromJson(tagJson))
         .toList();
 
-    final GalleryModel gallery = GalleryModel(
-      item: item,
+    final GalleryItemModel gallery = GalleryItemModel(
+      child: child,
       favorites: json["favorite_count"],
       ups: json["ups"],
       downs: json["downs"],
@@ -47,7 +47,7 @@ class GalleryModel {
       "ups": ups,
       "downs": downs,
       "score": score,
-      "item": item.toMap(),
+      "child": child.toMap(),
     };
 
     return map;
