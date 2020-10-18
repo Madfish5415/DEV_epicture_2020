@@ -1,4 +1,4 @@
-package fr.bonnet_mathieux.epicture
+package fr.bonnetmathieux.epicture
 
 import io.flutter.embedding.android.FlutterActivity
 
