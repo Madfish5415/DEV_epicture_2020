@@ -7,11 +7,12 @@ on:
 env:
   REPOSITORY_HOST: github.com
   REPOSITORY_OWNER: EpitechIT2020
-  REPOSITORY_NAME: B-DEV-501-TLS-5-1-epicture-lucas
+  REPOSITORY_NAME: B-DEV-501-TLS-5-1-epicture-lucas.mathieux
 
 jobs:
 
   push:
+    name: Push
     runs-on: ubuntu-latest
 
     steps:
