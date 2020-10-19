@@ -1,3 +1,4 @@
+import 'package:epicture/router.dart';
 import 'package:flutter/material.dart';
 
 class App extends StatelessWidget {
@@ -5,9 +6,8 @@ class App extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: "Epicture",
-      home: Center(
-        child: Text("Hello, World!"),
-      ),
+      navigatorKey: AppRouter.navigatorKey,
+      onGenerateRoute: AppRouter.generateRoute,
     );
   }
 }
