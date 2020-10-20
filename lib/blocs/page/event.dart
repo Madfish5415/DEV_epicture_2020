@@ -4,10 +4,10 @@ abstract class PageEvent {
   const PageEvent();
 }
 
-class PageToEvent extends PageEvent {
+class PageGoToEvent extends PageEvent {
   final int index;
 
-  const PageToEvent({
+  const PageGoToEvent({
     @required this.index,
   });
 }

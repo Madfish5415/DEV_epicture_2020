@@ -1,3 +1,4 @@
+import 'package:epicture/blocs/user.dart';
 import 'package:epicture/models/user.dart';
 import 'package:flutter/foundation.dart';
 
@@ -24,7 +25,11 @@ class UserLoggedOutState extends UserState {
 }
 
 class UserErrorState extends UserState {
+  final UserEvent event;
   final String message;
 
-  const UserErrorState({this.message});
+  const UserErrorState({
+    @required this.event,
+    this.message,
+  });
 }

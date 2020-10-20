@@ -3,7 +3,7 @@ import 'package:flutter/foundation.dart';
 class UserModel {
   final String accessToken;
   final String refreshToken;
-  final int accountId;
+  final String accountId;
   final String accountUsername;
 
   UserModel({

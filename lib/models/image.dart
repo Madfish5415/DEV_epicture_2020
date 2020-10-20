@@ -1,7 +1,7 @@
 import 'package:flutter/foundation.dart';
 
 class ImageModel {
-  final int id;
+  final String id;
   final String url;
   final String type;
   final int width;

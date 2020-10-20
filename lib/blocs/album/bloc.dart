@@ -25,11 +25,17 @@ class AlbumBloc extends Bloc<AlbumEvent, AlbumState> {
 
   Stream<AlbumState> _get(AlbumGetEvent event) async* {
     try {
-      final AlbumModel album = await _repository.get(id: event.id);
+      final AlbumModel album = await _repository.get(
+        id: event.id,
+        token: event.token,
+      );
 
       yield AlbumGotState(album: album);
     } on Exception catch (e) {
-      yield AlbumErrorState(message: e.toString());
+      yield AlbumErrorState(
+        event: event,
+        message: e.toString(),
+      );
     }
   }
 }

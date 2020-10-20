@@ -1,3 +1,4 @@
+import 'package:epicture/blocs/gallery_tags.dart';
 import 'package:epicture/models/gallery_tag.dart';
 import 'package:flutter/foundation.dart';
 
@@ -20,7 +21,11 @@ class GalleryTagsGotState extends GalleryTagsState {
 }
 
 class GalleryTagsErrorState extends GalleryTagsState {
+  final GalleryTagsEvent event;
   final String message;
 
-  const GalleryTagsErrorState({this.message});
+  const GalleryTagsErrorState({
+    @required this.event,
+    this.message,
+  });
 }

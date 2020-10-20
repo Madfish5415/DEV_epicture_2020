@@ -5,7 +5,7 @@ abstract class ImageEvent {
 }
 
 class ImageDeleteEvent extends ImageEvent {
-  final int id;
+  final String id;
   final String token;
 
   const ImageDeleteEvent({
@@ -15,7 +15,7 @@ class ImageDeleteEvent extends ImageEvent {
 }
 
 class ImageFavoriteEvent extends ImageEvent {
-  final int id;
+  final String id;
   final String token;
 
   const ImageFavoriteEvent({
@@ -25,13 +25,17 @@ class ImageFavoriteEvent extends ImageEvent {
 }
 
 class ImageGetEvent extends ImageEvent {
-  final int id;
+  final String id;
+  final String token;
 
-  const ImageGetEvent({@required this.id});
+  const ImageGetEvent({
+    @required this.id,
+    this.token,
+  });
 }
 
 class ImageUpdateEvent extends ImageEvent {
-  final int id;
+  final String id;
   final String token;
   final String title;
   final String description;

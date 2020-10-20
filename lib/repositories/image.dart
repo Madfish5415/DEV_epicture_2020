@@ -6,7 +6,7 @@ import 'package:flutter/foundation.dart';
 
 class ImageRepository {
   Future<ImageModel> delete({
-    @required int id,
+    @required String id,
     @required String token,
   }) async {
     final response = await ImgurClient.delete(
@@ -17,30 +17,33 @@ class ImageRepository {
     return ImageModel.fromJson(response["data"]);
   }
 
-  Future<ImageModel> favorite({
-    @required int id,
+  Future<bool> favorite({
+    @required String id,
     @required String token,
   }) async {
     final response = await ImgurClient.post(
       endpoint: "/3/image/$id/favorite",
       token: token,
     );
+    final bool favorited = (response["data"] == "favorited");
 
-    return ImageModel.fromJson(response["data"]);
+    return favorited;
   }
 
   Future<ImageModel> get({
-    @required int id,
+    @required String id,
+    String token,
   }) async {
     final response = await ImgurClient.get(
       endpoint: "/3/image/$id",
+      token: token,
     );
 
     return ImageModel.fromJson(response["data"]);
   }
 
   Future<ImageModel> update({
-    @required int id,
+    @required String id,
     @required String token,
     String title,
     String description,

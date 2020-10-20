@@ -1,3 +1,4 @@
+import 'package:epicture/blocs/image.dart';
 import 'package:epicture/models/image.dart';
 import 'package:flutter/foundation.dart';
 
@@ -20,9 +21,13 @@ class ImageDeletedState extends ImageState {
 }
 
 class ImageFavoritedState extends ImageState {
-  final ImageModel image;
+  final String id;
+  final bool favorited;
 
-  const ImageFavoritedState({@required this.image});
+  const ImageFavoritedState({
+    @required this.id,
+    @required this.favorited,
+  });
 }
 
 class ImageGotState extends ImageState {
@@ -38,7 +43,11 @@ class ImageUpdatedState extends ImageState {
 }
 
 class ImageErrorState extends ImageState {
+  final ImageEvent event;
   final String message;
 
-  const ImageErrorState({this.message});
+  const ImageErrorState({
+    @required this.event,
+    this.message,
+  });
 }

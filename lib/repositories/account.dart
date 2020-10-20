@@ -14,7 +14,7 @@ class AccountRepository {
       endpoint: "/3/account/$name/favorites/$page/$sort",
       token: token,
     );
-    final List<Map<String, dynamic>> jsonItemList = response["data"];
+    final List<dynamic> jsonItemList = response["data"];
     final List<GalleryItemModel> gallery = jsonItemList
         .map((jsonItem) => GalleryItemModel.fromJson(jsonItem))
         .toList();
@@ -43,7 +43,7 @@ class AccountRepository {
       endpoint: "/3/account/$name/submissions/$page",
       token: token,
     );
-    final List<Map<String, dynamic>> jsonItemList = response["data"];
+    final List<dynamic> jsonItemList = response["data"];
     final List<GalleryItemModel> gallery = jsonItemList
         .map((jsonItem) => GalleryItemModel.fromJson(jsonItem))
         .toList();
