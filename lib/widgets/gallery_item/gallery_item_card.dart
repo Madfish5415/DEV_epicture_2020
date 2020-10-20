@@ -2,10 +2,10 @@ import 'package:epicture/models/album.dart';
 import 'package:epicture/models/gallery_item.dart';
 import 'package:epicture/models/image.dart';
 import 'package:epicture/router.dart';
-import 'package:epicture/widgets/model/image_preview.dart';
-import 'package:epicture/widgets/model/video_preview.dart';
+import 'package:epicture/widgets/image/image_preview.dart';
+import 'package:epicture/widgets/video/video_preview.dart';
 import 'package:epicture/widgets/utility/elevation.dart';
-import 'package:epicture/widgets/utility/icon_text.dart';
+import 'package:epicture/widgets/icon/icon_text.dart';
 import 'package:flutter/material.dart';
 
 class GalleryItemCard extends StatelessWidget {

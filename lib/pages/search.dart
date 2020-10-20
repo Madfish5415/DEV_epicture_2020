@@ -1,6 +1,6 @@
 import 'package:epicture/blocs/gallery_tags.dart';
 import 'package:epicture/repositories/gallery_tags.dart';
-import 'package:epicture/widgets/model/gallery_tag_card.dart';
+import 'package:epicture/widgets/gallery_item/gallery_tag_card.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 

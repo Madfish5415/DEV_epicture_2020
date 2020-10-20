@@ -3,7 +3,7 @@ import 'package:epicture/models/gallery_item.dart';
 import 'package:epicture/repositories/gallery.dart';
 import 'package:epicture/widgets/bloc/bloc_provider_builder.dart';
 import 'package:epicture/widgets/list/radio_list.dart';
-import 'package:epicture/widgets/model/gallery_item_card.dart';
+import 'package:epicture/widgets/gallery_item/gallery_item_card.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 

@@ -1,5 +1,5 @@
 import 'package:epicture/models/gallery_item.dart';
-import 'package:epicture/widgets/utility/icon_text.dart';
+import 'package:epicture/widgets/icon/icon_text.dart';
 import 'package:flutter/material.dart';
 
 class GalleryItemInformationWidget extends StatelessWidget {
