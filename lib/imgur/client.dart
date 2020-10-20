@@ -124,7 +124,7 @@ class ImgurClient {
 
   static Uri _uri({
     @required String endpoint,
-    Map<String, dynamic> queryParameters,
+    Map<String, String> queryParameters,
   }) {
     return Uri.https(
       host,
@@ -139,8 +139,8 @@ class ImgurClient {
     };
   }
 
-  static Map<String, String> _decode(http.Response response) {
-    final Map<String, String> json = jsonDecode(
+  static Map<String, dynamic> _decode(http.Response response) {
+    final Map<String, dynamic> json = jsonDecode(
       utf8.decode(response.bodyBytes),
     );
 
