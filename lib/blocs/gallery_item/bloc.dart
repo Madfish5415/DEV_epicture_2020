@@ -72,7 +72,7 @@ class GalleryItemBloc extends Bloc<GalleryItemEvent, GalleryItemState> {
         token: event.token,
       );
 
-      yield GalleryItemGotState(galleryItem: galleryItem);
+      yield GalleryItemRemovedState(galleryItem: galleryItem);
     } on Exception catch (e) {
       yield GalleryItemErrorState(
         event: event,
@@ -92,7 +92,7 @@ class GalleryItemBloc extends Bloc<GalleryItemEvent, GalleryItemState> {
         tags: event.tags,
       );
 
-      yield GalleryItemGotState(galleryItem: galleryItem);
+      yield GalleryItemSharedState(galleryItem: galleryItem);
     } on Exception catch (e) {
       yield GalleryItemErrorState(
         event: event,
