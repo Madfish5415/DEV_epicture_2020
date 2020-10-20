@@ -3,10 +3,10 @@ import 'package:epicture/models/album.dart';
 import 'package:epicture/models/gallery_item.dart';
 import 'package:epicture/repositories/gallery_item.dart';
 import 'package:epicture/widgets/model/gallery_item_favorite_action.dart';
-import 'package:epicture/widgets/model/gallery_item_vote_actions.dart';
 import 'package:epicture/widgets/model/gallery_item_information.dart';
-import 'package:epicture/widgets/model/gallery_item_user_show.dart';
 import 'package:epicture/widgets/model/gallery_item_view.dart';
+import 'package:epicture/widgets/model/gallery_item_vote_actions.dart';
+import 'package:epicture/widgets/model/user_show.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -14,14 +14,10 @@ class ViewScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final GalleryItemModel galleryItem =
-        ModalRoute
-            .of(context)
-            .settings
-            .arguments;
+        ModalRoute.of(context).settings.arguments;
 
     return BlocProvider(
-      create: (_) =>
-      GalleryItemBloc(GalleryItemRepository())
+      create: (_) => GalleryItemBloc(GalleryItemRepository())
         ..add(GalleryItemGetEvent(
           type: (galleryItem.child is AlbumModel) ? "album" : "image",
           id: galleryItem.child.id,
@@ -60,8 +56,7 @@ class _ViewGalleryItemGotWidget extends StatelessWidget {
       children: [
         Expanded(child: GalleryItemViewWidget(galleryItem: galleryItem)),
         GalleryItemInformationWidget(galleryItem: galleryItem),
-        GalleryItemUserShowWidget(
-          galleryItem: galleryItem,
+        UserShowWidget(
           builder: (context, user) {
             return Row(
               children: [

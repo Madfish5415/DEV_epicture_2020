@@ -35,14 +35,11 @@ class GalleryItemFavoriteActionWidget extends StatelessWidget {
             favorited = state.favorited;
           }
 
-          return Row(
-            children: [
-              _ImageItemActionsFavoriteButton(
-                  type: galleryItem.type,
-                  id: galleryItem.child.id,
-                  token: user.accessToken,
-                  state: favorited),
-            ],
+          return _ImageItemActionsFavoriteButton(
+            type: galleryItem.type,
+            id: galleryItem.child.id,
+            token: user.accessToken,
+            state: favorited,
           );
         },
       ),
