@@ -3,23 +3,27 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 
 class BottomBarWidget extends StatelessWidget {
-  final List<PageModel> _pages;
-  final int _currentIndex;
-  final Function(int) _onTap;
+  final int currentIndex;
+  final List<PageModel> pages;
+  final ValueChanged<int> onTap;
 
-  BottomBarWidget(this._pages, this._currentIndex, this._onTap);
+  BottomBarWidget({
+    @required this.currentIndex,
+    @required this.pages,
+    @required this.onTap,
+  });
 
   @override
   Widget build(BuildContext context) {
     return BottomNavigationBar(
       items: _generateItems(),
-      currentIndex: _currentIndex,
-      onTap: _onTap,
+      currentIndex: currentIndex,
+      onTap: onTap,
     );
   }
 
   List<BottomNavigationBarItem> _generateItems() {
-    final List<BottomNavigationBarItem> items = _pages.map((page) {
+    final List<BottomNavigationBarItem> items = pages.map((page) {
       return BottomNavigationBarItem(
         icon: Icon(page.item.iconData),
         label: page.item.label,

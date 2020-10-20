@@ -1,3 +1,4 @@
+import 'package:epicture/blocs/album.dart';
 import 'package:epicture/models/album.dart';
 import 'package:flutter/foundation.dart';
 
@@ -20,7 +21,11 @@ class AlbumGotState extends AlbumState {
 }
 
 class AlbumErrorState extends AlbumState {
+  final AlbumEvent event;
   final String message;
 
-  const AlbumErrorState({this.message});
+  const AlbumErrorState({
+    @required this.event,
+    this.message,
+  });
 }

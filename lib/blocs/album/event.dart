@@ -5,7 +5,11 @@ abstract class AlbumEvent {
 }
 
 class AlbumGetEvent extends AlbumEvent {
-  final int id;
+  final String id;
+  final String token;
 
-  const AlbumGetEvent({@required this.id});
+  const AlbumGetEvent({
+    @required this.id,
+    this.token,
+  });
 }

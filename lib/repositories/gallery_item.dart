@@ -3,19 +3,35 @@ import 'package:epicture/models/gallery_item.dart';
 import 'package:flutter/foundation.dart';
 
 class GalleryItemRepository {
+  Future<bool> favorite({
+    @required String type,
+    @required String id,
+    String token,
+  }) async {
+    final response = await ImgurClient.post(
+      endpoint: "/3/$type/$id/favorite",
+      token: token,
+    );
+    final bool favorited = (response["data"] == "favorited");
+
+    return favorited;
+  }
+
   Future<GalleryItemModel> get({
     @required String type,
-    @required int id,
+    @required String id,
+    String token,
   }) async {
     final response = await ImgurClient.get(
       endpoint: "/3/gallery/$type/$id",
+      token: token,
     );
 
     return GalleryItemModel.fromJson(response["data"]);
   }
 
   Future<GalleryItemModel> remove({
-    @required int id,
+    @required String id,
     @required String token,
   }) async {
     final response = await ImgurClient.delete(
@@ -28,7 +44,7 @@ class GalleryItemRepository {
 
   Future<GalleryItemModel> share({
     @required String type,
-    @required int id,
+    @required String id,
     @required String token,
     @required String title,
     String topic,
@@ -48,8 +64,8 @@ class GalleryItemRepository {
     return GalleryItemModel.fromJson(response["data"]);
   }
 
-  Future<GalleryItemModel> vote({
-    @required int id,
+  Future<bool> vote({
+    @required String id,
     @required String vote,
     @required String token,
   }) async {
@@ -57,7 +73,8 @@ class GalleryItemRepository {
       endpoint: "/3/gallery/$id/vote/$vote",
       token: token,
     );
+    final bool voted = response["data"];
 
-    return GalleryItemModel.fromJson(response["data"]);
+    return voted;
   }
 }

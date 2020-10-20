@@ -1,7 +1,7 @@
 import 'package:flutter/foundation.dart';
 
 class GalleryTagModel {
-  final int id;
+  final String id;
   final String name;
   final String title;
   final String coverId;

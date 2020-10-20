@@ -10,7 +10,10 @@ class AppRouter {
   static Route<dynamic> generateRoute(RouteSettings settings) {
     final ScreenModel screen = _repository.screens[settings.name];
 
-    return MaterialPageRoute(builder: screen.builder);
+    return MaterialPageRoute(
+      builder: screen.builder,
+      settings: settings,
+    );
   }
 
   static NavigatorState get navigator => navigatorKey.currentState;

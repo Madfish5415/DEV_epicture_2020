@@ -36,32 +36,44 @@ class ImageBloc extends Bloc<ImageEvent, ImageState> {
         token: event.token,
       );
 
-      yield ImageGotState(image: image);
+      yield ImageDeletedState(image: image);
     } on Exception catch (e) {
-      yield ImageErrorState(message: e.toString());
+      yield ImageErrorState(
+        event: event,
+        message: e.toString(),
+      );
     }
   }
 
   Stream<ImageState> _favorite(ImageFavoriteEvent event) async* {
     try {
-      final ImageModel image = await _repository.favorite(
+      final bool favorited = await _repository.favorite(
+        id: event.id,
+        token: event.token,
+      );
+
+      yield ImageFavoritedState(id: event.id, favorited: favorited);
+    } on Exception catch (e) {
+      yield ImageErrorState(
+        event: event,
+        message: e.toString(),
+      );
+    }
+  }
+
+  Stream<ImageState> _get(ImageGetEvent event) async* {
+    try {
+      final ImageModel image = await _repository.get(
         id: event.id,
         token: event.token,
       );
 
       yield ImageGotState(image: image);
     } on Exception catch (e) {
-      yield ImageErrorState(message: e.toString());
-    }
-  }
-
-  Stream<ImageState> _get(ImageGetEvent event) async* {
-    try {
-      final ImageModel image = await _repository.get(id: event.id);
-
-      yield ImageGotState(image: image);
-    } on Exception catch (e) {
-      yield ImageErrorState(message: e.toString());
+      yield ImageErrorState(
+        event: event,
+        message: e.toString(),
+      );
     }
   }
 
@@ -74,9 +86,12 @@ class ImageBloc extends Bloc<ImageEvent, ImageState> {
         description: event.description,
       );
 
-      yield ImageGotState(image: image);
+      yield ImageUpdatedState(image: image);
     } on Exception catch (e) {
-      yield ImageErrorState(message: e.toString());
+      yield ImageErrorState(
+        event: event,
+        message: e.toString(),
+      );
     }
   }
 }

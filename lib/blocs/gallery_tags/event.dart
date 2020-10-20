@@ -3,5 +3,7 @@ abstract class GalleryTagsEvent {
 }
 
 class GalleryTagsGetEvent extends GalleryTagsEvent {
-  const GalleryTagsGetEvent();
+  final String token;
+
+  const GalleryTagsGetEvent({this.token});
 }

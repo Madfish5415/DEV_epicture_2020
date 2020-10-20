@@ -2,9 +2,9 @@ import 'package:epicture/models/image.dart';
 import 'package:flutter/foundation.dart';
 
 class AlbumModel {
-  final int id;
+  final String id;
   final String url;
-  final int coverId;
+  final String coverId;
   final String title;
   final String description;
   final int views;
@@ -23,7 +23,7 @@ class AlbumModel {
   });
 
   factory AlbumModel.fromJson(Map<String, dynamic> json) {
-    final List<Map<String, dynamic>> imageJsonList = json["images"];
+    final List<dynamic> imageJsonList = json["images"];
     final List<ImageModel> images = imageJsonList
         .map((imageJson) => ImageModel.fromJson(imageJson))
         .toList();

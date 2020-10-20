@@ -1,3 +1,4 @@
+import 'package:epicture/blocs/gallery.dart';
 import 'package:epicture/models/gallery_item.dart';
 import 'package:flutter/foundation.dart';
 
@@ -20,7 +21,11 @@ class GalleryGotState extends GalleryState {
 }
 
 class GalleryErrorState extends GalleryState {
+  final GalleryEvent event;
   final String message;
 
-  const GalleryErrorState({this.message});
+  const GalleryErrorState({
+    @required this.event,
+    this.message,
+  });
 }

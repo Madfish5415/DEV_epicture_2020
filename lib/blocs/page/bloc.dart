@@ -12,20 +12,23 @@ class PageBloc extends Bloc<PageEvent, PageState> {
     return BlocProvider.of(context);
   }
 
-  PageBloc(this._repository)
-      : super(PageState(
-          page: _repository.pages.first,
-        ));
+  PageBloc(this._repository) : super(PageInitialState());
 
   @override
   Stream<PageState> mapEventToState(PageEvent event) async* {
-    if (event is PageToEvent) {
-      if (event.index != _repository.pages.indexOf(state.page)) {
-        yield PageState(
-          page: _repository.pages[event.index],
-        );
-      }
+    if (event is PageGoToEvent) {
+      yield* _goTo(event);
     }
+  }
+
+  Stream<PageState> _goTo(PageGoToEvent event) async* {
+    PageState current = state;
+
+    if (current is PageGoneToState) {
+      if (event.index == _repository.pages.indexOf(current.page)) return;
+    }
+
+    yield PageGoneToState(page: _repository.pages[event.index]);
   }
 
   List<PageModel> get pages => _repository.pages;

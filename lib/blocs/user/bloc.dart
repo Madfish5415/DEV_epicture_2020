@@ -31,7 +31,10 @@ class UserBloc extends Bloc<UserEvent, UserState> {
 
       yield UserLoggedInState(user: user);
     } on Exception catch (e) {
-      yield UserErrorState(message: e.toString());
+      yield UserErrorState(
+        event: event,
+        message: e.toString(),
+      );
     }
   }
 
@@ -41,7 +44,10 @@ class UserBloc extends Bloc<UserEvent, UserState> {
 
       yield UserLoggedOutState();
     } on Exception catch (e) {
-      yield UserErrorState(message: e.toString());
+      yield UserErrorState(
+        event: event,
+        message: e.toString(),
+      );
     }
   }
 }
