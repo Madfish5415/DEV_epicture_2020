@@ -1,0 +1,68 @@
+name: Pull Request
+
+on: [ pull_request ]
+
+jobs:
+
+  flutter:
+    name: Flutter
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Setup environment
+        run: |
+          echo "ANDROID_SDK_ROOT=$ANDROID_SDK_ROOT" >> $GITHUB_ENV
+          echo "PATH=$PATH:$ANDROID_SDK_ROOT/tools/bin" >> $GITHUB_ENV
+
+      - name: Install Flutter
+        run: |
+          sudo snap install flutter --classic
+
+      - name: NDK Cache
+        uses: actions/cache@v2
+        with:
+          key: ${{ runner.os }}-ndk-20.0.5594570
+          restore-keys: |
+            ${{ runner.os }}-ndk
+          path: |
+            ${{ env.ANDROID_SDK_ROOT }}/ndk
+
+      - name: Install NDK
+        run: |
+          sdkmanager --install "ndk;20.0.5594570"
+
+      - uses: actions/checkout@v2
+
+      - name: Flutter Cache
+        uses: actions/cache@v2
+        with:
+          key: ${{ runner.os }}-flutter-1.22
+          restore-keys: |
+            ${{ runner.os }}-flutter
+          path: |
+            ~/snap/flutter/common/flutter
+
+      - name: Setup Flutter
+        run: |
+          flutter doctor
+
+      - name: Pub Cache
+        uses: actions/cache@v2
+        with:
+          key: ${{ runner.os }}-pubspec-${{ hashFiles('**/pubspec.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-pubspec
+          path: |
+            ~/.pub-cache
+
+      - name: Install dependencies
+        run: |
+          flutter pub get
+
+      - name: Build
+        run: |
+          flutter build apk
+
+      - name: Lint
+        run: |
+          flutter analyze
