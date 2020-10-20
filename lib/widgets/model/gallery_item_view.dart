@@ -10,6 +10,7 @@ import 'package:epicture/widgets/model/video_view.dart';
 import 'package:epicture/widgets/utility/icon_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:image_downloader/image_downloader.dart';
 
 class GalleryItemViewWidget extends StatelessWidget {
   final GalleryItemModel galleryItem;
@@ -81,13 +82,10 @@ class _GalleryItemViewImageBottom extends StatelessWidget {
               children: [
                 UserShowWidget(
                   builder: (context, user) {
-                    return _GalleryItemFavoriteAction(image: image, user: user);
+                    return _ImageFavoriteAction(image: image, user: user);
                   },
                 ),
-                IconButton(
-                  icon: Icon(Icons.file_download),
-                  onPressed: () {},
-                )
+                _ImageDownloadButton(url: image.url),
               ],
             ),
           ),
@@ -97,11 +95,11 @@ class _GalleryItemViewImageBottom extends StatelessWidget {
   }
 }
 
-class _GalleryItemFavoriteAction extends StatelessWidget {
+class _ImageFavoriteAction extends StatelessWidget {
   final ImageModel image;
   final UserModel user;
 
-  _GalleryItemFavoriteAction({
+  _ImageFavoriteAction({
     @required this.image,
     @required this.user,
   });
@@ -126,7 +124,7 @@ class _GalleryItemFavoriteAction extends StatelessWidget {
             favorited = state.favorited;
           }
 
-          return _GalleryItemFavoriteButton(
+          return _ImageFavoriteButton(
             id: image.id,
             token: user.accessToken,
             state: favorited,
@@ -137,12 +135,12 @@ class _GalleryItemFavoriteAction extends StatelessWidget {
   }
 }
 
-class _GalleryItemFavoriteButton extends StatelessWidget {
+class _ImageFavoriteButton extends StatelessWidget {
   final String id;
   final String token;
   final bool state;
 
-  _GalleryItemFavoriteButton({
+  _ImageFavoriteButton({
     @required this.id,
     @required this.token,
     @required this.state,
@@ -160,6 +158,30 @@ class _GalleryItemFavoriteButton extends StatelessWidget {
             token: token,
           ),
         );
+      },
+    );
+  }
+}
+
+class _ImageDownloadButton extends StatelessWidget {
+  final String url;
+
+  _ImageDownloadButton({
+    @required this.url,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return IconButton(
+      icon: Icon(Icons.download_sharp),
+      onPressed: () async {
+        try {
+          await ImageDownloader.downloadImage(url);
+
+          Scaffold.of(context).showSnackBar(SnackBar(content: Text("Success download.")));
+        } catch (e) {
+          Scaffold.of(context).showSnackBar(SnackBar(content: Text("Error download.")));
+        }
       },
     );
   }

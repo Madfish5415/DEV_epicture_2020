@@ -35,7 +35,7 @@ class GalleryItemFavoriteActionWidget extends StatelessWidget {
             favorited = state.favorited;
           }
 
-          return _ImageItemActionsFavoriteButton(
+          return _GalleryItemFavoriteButton(
             type: galleryItem.type,
             id: galleryItem.child.id,
             token: user.accessToken,
@@ -47,13 +47,13 @@ class GalleryItemFavoriteActionWidget extends StatelessWidget {
   }
 }
 
-class _ImageItemActionsFavoriteButton extends StatelessWidget {
+class _GalleryItemFavoriteButton extends StatelessWidget {
   final String type;
   final String id;
   final String token;
   final bool state;
 
-  _ImageItemActionsFavoriteButton({
+  _GalleryItemFavoriteButton({
     @required this.type,
     @required this.id,
     @required this.token,
