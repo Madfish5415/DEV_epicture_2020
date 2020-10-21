@@ -5,6 +5,7 @@ import 'package:epicture/models/user.dart';
 import 'package:epicture/pages/profile/account/favorites.dart';
 import 'package:epicture/pages/profile/account/posts.dart';
 import 'package:epicture/repositories/account.dart';
+import 'package:epicture/router.dart';
 import 'package:epicture/widgets/account/account_card.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -48,7 +49,7 @@ class ProfileAccountPage extends StatelessWidget {
         ),
         floatingActionButton: FloatingActionButton(
           child: Icon(Icons.file_upload),
-          onPressed: () {},
+          onPressed: () => AppRouter.navigator.pushNamed("/upload", arguments: user),
         ),
       ),
     );
