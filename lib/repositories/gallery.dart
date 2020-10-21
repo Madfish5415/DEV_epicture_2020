@@ -49,7 +49,7 @@ class GalleryRepository {
     String token,
   }) async {
     final response = await ImgurClient.get(
-      endpoint: "/3/gallery/t/search/$sort/$window/$page",
+      endpoint: "/3/gallery/search/$sort/$window/$page",
       queryParameters: {
         "q": query,
       },
