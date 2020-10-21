@@ -148,15 +148,15 @@ class ImgurClient {
       case 200:
         return json;
       case 400:
-        throw ImgurBadRequestException(json["error"]);
+        throw ImgurBadRequestException(json["data"]["error"]);
       case 401:
-        throw ImgurUnauthorisedException(json["error"]);
+        throw ImgurUnauthorisedException(json["data"]["error"]);
       case 403:
-        throw ImgurForbiddenException(json["error"]);
+        throw ImgurForbiddenException(json["data"]["error"]);
       case 404:
-        throw ImgurNotFoundException(json["error"]);
+        throw ImgurNotFoundException(json["data"]["error"]);
       default:
-        throw ImgurException(json["error"]);
+        throw ImgurException(json["data"]["error"]);
     }
   }
 }
