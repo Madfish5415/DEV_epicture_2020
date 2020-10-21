@@ -1,7 +1,7 @@
 import 'package:flutter/foundation.dart';
 
 class AccountModel {
-  final String id;
+  final int id;
   final String username;
   final String biography;
   final String avatarUrl;

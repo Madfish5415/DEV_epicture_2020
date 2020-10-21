@@ -6,6 +6,7 @@ import 'package:flutter/foundation.dart';
 class GalleryItemModel {
   final dynamic child;
   final String type;
+  final bool public;
   final int favorites;
   final int ups;
   final int downs;
@@ -16,6 +17,7 @@ class GalleryItemModel {
   GalleryItemModel({
     @required this.child,
     @required this.type,
+    @required this.public,
     @required this.favorites,
     @required this.ups,
     @required this.downs,
@@ -25,18 +27,19 @@ class GalleryItemModel {
   });
 
   factory GalleryItemModel.fromJson(Map<String, dynamic> json) {
-    final dynamic child = (json["is_album"])
+    final dynamic child = (json["is_album"] ?? false)
         ? AlbumModel.fromJson(json)
         : ImageModel.fromJson(json);
-    final String type = (json["is_album"]) ? "album" : "image";
+    final String type = (json["is_album"] ?? false) ? "album" : "image";
     final List<dynamic> tagJsonList = json["tags"];
     final List<GalleryTagModel> tags = tagJsonList
-        .map((tagJson) => GalleryTagModel.fromJson(tagJson))
-        .toList();
+        ?.map((tagJson) => GalleryTagModel.fromJson(tagJson))
+        ?.toList();
 
     final GalleryItemModel gallery = GalleryItemModel(
       child: child,
       type: type,
+      public: json["in_gallery"],
       favorites: json["favorite_count"],
       ups: json["ups"],
       downs: json["downs"],
@@ -52,6 +55,7 @@ class GalleryItemModel {
     final Map<String, dynamic> map = {
       "child": child.toMap(),
       "type": type,
+      "public": public,
       "favorites": favorites,
       "ups": ups,
       "downs": downs,

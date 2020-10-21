@@ -25,8 +25,8 @@ class AlbumModel {
   factory AlbumModel.fromJson(Map<String, dynamic> json) {
     final List<dynamic> imageJsonList = json["images"];
     final List<ImageModel> images = imageJsonList
-        .map((imageJson) => ImageModel.fromJson(imageJson))
-        .toList();
+        ?.map((imageJson) => ImageModel.fromJson(imageJson))
+        ?.toList();
 
     final AlbumModel album = AlbumModel(
       id: json["id"],
