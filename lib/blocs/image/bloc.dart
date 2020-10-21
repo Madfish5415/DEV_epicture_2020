@@ -26,6 +26,8 @@ class ImageBloc extends Bloc<ImageEvent, ImageState> {
       yield* _get(event);
     } else if (event is ImageUpdateEvent) {
       yield* _update(event);
+    } else if (event is ImageUploadEvent) {
+      yield* _upload(event);
     }
   }
 
@@ -82,6 +84,25 @@ class ImageBloc extends Bloc<ImageEvent, ImageState> {
       final ImageModel image = await _repository.update(
         id: event.id,
         token: event.token,
+        title: event.title,
+        description: event.description,
+      );
+
+      yield ImageUpdatedState(image: image);
+    } on Exception catch (e) {
+      yield ImageErrorState(
+        event: event,
+        message: e.toString(),
+      );
+    }
+  }
+
+  Stream<ImageState> _upload(ImageUploadEvent event) async* {
+    try {
+      final ImageModel image = await _repository.upload(
+        token: event.token,
+        field: event.field,
+        file: event.file,
         title: event.title,
         description: event.description,
       );

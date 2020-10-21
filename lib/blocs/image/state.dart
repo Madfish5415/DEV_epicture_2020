@@ -42,6 +42,12 @@ class ImageUpdatedState extends ImageState {
   const ImageUpdatedState({@required this.image});
 }
 
+class ImageUploadedState extends ImageState {
+  final ImageModel image;
+
+  const ImageUploadedState({@required this.image});
+}
+
 class ImageErrorState extends ImageState {
   final ImageEvent event;
   final String message;

@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/foundation.dart';
 
 abstract class ImageEvent {
@@ -43,6 +45,22 @@ class ImageUpdateEvent extends ImageEvent {
   const ImageUpdateEvent({
     @required this.id,
     @required this.token,
+    this.title,
+    this.description,
+  });
+}
+
+class ImageUploadEvent extends ImageEvent {
+  final String token;
+  final String field;
+  final File file;
+  final String title;
+  final String description;
+
+  const ImageUploadEvent({
+    @required this.token,
+    @required this.field,
+    @required this.file,
     this.title,
     this.description,
   });
