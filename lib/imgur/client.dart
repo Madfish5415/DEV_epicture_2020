@@ -27,7 +27,7 @@ class ImgurClient {
 
   static Future<Map<String, dynamic>> delete({
     @required String endpoint,
-    Map<String, dynamic> queryParameters,
+    Map<String, String> queryParameters,
     String token,
   }) {
     return _request(
@@ -42,7 +42,7 @@ class ImgurClient {
 
   static Future<Map<String, dynamic>> get({
     @required String endpoint,
-    Map<String, dynamic> queryParameters,
+    Map<String, String> queryParameters,
     String token,
   }) {
     return _request(
@@ -57,7 +57,7 @@ class ImgurClient {
 
   static Future<Map<String, dynamic>> post({
     @required String endpoint,
-    Map<String, dynamic> queryParameters,
+    Map<String, String> queryParameters,
     Map<String, dynamic> body,
     String token,
   }) {
@@ -73,8 +73,8 @@ class ImgurClient {
 
   static Future<Map<String, dynamic>> postMultipart({
     @required String endpoint,
-    Map<String, dynamic> queryParameters,
-    Map<String, dynamic> body,
+    Map<String, String> queryParameters,
+    Map<String, String> body,
     String field,
     File file,
     String token,
@@ -84,11 +84,16 @@ class ImgurClient {
       queryParameters: queryParameters,
       function: ({headers, uri}) async {
         final fileBytes = await file.readAsBytes();
+        final multipartFile = http.MultipartFile.fromBytes(
+          "image",
+          fileBytes,
+          filename: file.path.split("/").last,
+        );
         final request = http.MultipartRequest("POST", uri);
 
         request.headers.addAll(headers);
-        request.fields.addAll(body);
-        request.files.add(http.MultipartFile.fromBytes(field, fileBytes));
+        // request.fields.addAll(body);
+        request.files.add(multipartFile);
 
         final streamedResponse = await request.send();
 
@@ -100,7 +105,7 @@ class ImgurClient {
 
   static Future<Map<String, dynamic>> _request({
     @required String endpoint,
-    Map<String, dynamic> queryParameters,
+    Map<String, String> queryParameters,
     Future<http.Response> function({
       Uri uri,
       Map<String, dynamic> headers,
