@@ -79,10 +79,10 @@ class _GalleryItemViewImageBottom extends StatelessWidget {
               children: [
                 UserShowWidget(
                   builder: (context, user) {
-                    return ImageFavoriteAction(image: image, user: user);
+                    return ImageFavoriteActionWidget(image: image, user: user);
                   },
                 ),
-                ImageDownloadButton(url: image.url),
+                ImageDownloadActionWidget(url: image.url),
               ],
             ),
           ),

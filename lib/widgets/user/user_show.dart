@@ -3,7 +3,8 @@ import 'package:epicture/models/user.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-typedef UserWidgetBuilder = Widget Function(BuildContext context, UserModel user);
+typedef UserWidgetBuilder = Widget Function(
+    BuildContext context, UserModel user);
 
 class UserShowWidget extends StatelessWidget {
   final UserWidgetBuilder builder;

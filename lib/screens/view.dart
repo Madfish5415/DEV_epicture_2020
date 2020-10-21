@@ -10,42 +10,67 @@ import 'package:epicture/widgets/user/user_show.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-class ViewScreen extends StatelessWidget {
+class ViewScreenWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final GalleryItemModel galleryItem =
         ModalRoute.of(context).settings.arguments;
 
-    return BlocProvider(
-      create: (_) => GalleryItemBloc(GalleryItemRepository())
-        ..add(GalleryItemGetEvent(
-          type: (galleryItem.child is AlbumModel) ? "album" : "image",
-          id: galleryItem.child.id,
-        )),
-      child: Scaffold(
-        appBar: AppBar(
-          title: Text("Details"),
-        ),
-        body: BlocBuilder<GalleryItemBloc, GalleryItemState>(
-          builder: (context, state) {
-            if (state is GalleryItemGotState) {
-              return _ViewGalleryItemGotWidget(galleryItem: galleryItem);
-            } else if (state is GalleryItemErrorState) {
-              return _ViewGalleryItemErrorWidget(error: state);
-            }
+    return Scaffold(
+      appBar: AppBar(
+        title: Text("Details"),
+      ),
+      body: Builder(
+        builder: (context) {
+          if (!galleryItem.public) {
+            return _ViewImage(galleryItem: galleryItem);
+          }
 
-            return Center(child: CircularProgressIndicator());
-          },
-        ),
+          return _ViewGalleryItem(galleryItem: galleryItem);
+        },
       ),
     );
   }
 }
 
-class _ViewGalleryItemGotWidget extends StatelessWidget {
+class _ViewGalleryItem extends StatelessWidget {
+  const _ViewGalleryItem({
+    @required this.galleryItem,
+  });
+
   final GalleryItemModel galleryItem;
 
-  _ViewGalleryItemGotWidget({
+  @override
+  Widget build(BuildContext context) {
+    return BlocProvider(
+      create: (context) {
+        return GalleryItemBloc(GalleryItemRepository())
+          ..add(
+            GalleryItemGetEvent(
+              type: (galleryItem.child is AlbumModel) ? "album" : "image",
+              id: galleryItem.child.id,
+            ),
+          );
+      },
+      child: BlocBuilder<GalleryItemBloc, GalleryItemState>(
+        builder: (context, state) {
+          if (state is GalleryItemGotState) {
+            return _ViewGalleryItemGot(galleryItem: state.galleryItem);
+          } else if (state is GalleryItemErrorState) {
+            return _ViewGalleryItemError(error: state);
+          }
+
+          return Center(child: CircularProgressIndicator());
+        },
+      ),
+    );
+  }
+}
+
+class _ViewGalleryItemGot extends StatelessWidget {
+  final GalleryItemModel galleryItem;
+
+  _ViewGalleryItemGot({
     @required this.galleryItem,
   });
 
@@ -77,10 +102,10 @@ class _ViewGalleryItemGotWidget extends StatelessWidget {
   }
 }
 
-class _ViewGalleryItemErrorWidget extends StatelessWidget {
+class _ViewGalleryItemError extends StatelessWidget {
   final GalleryItemErrorState error;
 
-  _ViewGalleryItemErrorWidget({
+  _ViewGalleryItemError({
     @required this.error,
   });
 
@@ -99,6 +124,25 @@ class _ViewGalleryItemErrorWidget extends StatelessWidget {
           ),
         ],
       ),
+    );
+  }
+}
+
+class _ViewImage extends StatelessWidget {
+  final GalleryItemModel galleryItem;
+
+  _ViewImage({
+    @required this.galleryItem,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        Expanded(child: GalleryItemViewWidget(galleryItem: galleryItem)),
+        GalleryItemInformationWidget(galleryItem: galleryItem),
+      ],
     );
   }
 }

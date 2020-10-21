@@ -34,16 +34,16 @@ class _RadioListState<T> extends State<RadioListWidget<T>> {
       children: [
         widget.title,
       ]..addAll(widget.list.keys.map((key) {
-        return RadioListTile(
-          title: widget.list[key],
-          value: key,
-          groupValue: group,
-          onChanged: (value) {
-            _change(value);
-            widget.onChanged(value);
-          },
-        );
-      })),
+          return RadioListTile(
+            title: widget.list[key],
+            value: key,
+            groupValue: group,
+            onChanged: (value) {
+              _change(value);
+              widget.onChanged(value);
+            },
+          );
+        })),
     );
   }
 

@@ -2,12 +2,12 @@ import 'package:epicture/blocs/gallery.dart';
 import 'package:epicture/models/gallery_item.dart';
 import 'package:epicture/repositories/gallery.dart';
 import 'package:epicture/widgets/bloc/bloc_provider_builder.dart';
+import 'package:epicture/widgets/gallery/gallery_grid.dart';
 import 'package:epicture/widgets/list/radio_list.dart';
-import 'package:epicture/widgets/gallery_item/gallery_item_card.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-class HomePage extends StatelessWidget {
+class HomePageWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProviderBuilderWidget(
@@ -32,9 +32,9 @@ class HomePage extends StatelessWidget {
           body: BlocBuilder<GalleryBloc, GalleryState>(
             builder: (context, state) {
               if (state is GalleryGotState) {
-                return _HomeGalleryGotWidget(gallery: state.gallery);
+                return _HomeGalleryGot(gallery: state.gallery);
               } else if (state is GalleryErrorState) {
-                return _HomeGalleryErrorWidget(error: state);
+                return _HomeGalleryError(error: state);
               }
 
               return Center(child: CircularProgressIndicator());
@@ -46,34 +46,23 @@ class HomePage extends StatelessWidget {
   }
 }
 
-class _HomeGalleryGotWidget extends StatelessWidget {
+class _HomeGalleryGot extends StatelessWidget {
   final List<GalleryItemModel> gallery;
 
-  _HomeGalleryGotWidget({
+  _HomeGalleryGot({
     @required this.gallery,
   });
 
   @override
   Widget build(BuildContext context) {
-    return GridView.builder(
-      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-        crossAxisCount: 2,
-        childAspectRatio: 8 / 10,
-      ),
-      itemCount: gallery.length,
-      itemBuilder: (context, index) {
-        return GalleryItemCard(
-          galleryItem: gallery[index],
-        );
-      },
-    );
+    return GalleryGridWidget(gallery: gallery);
   }
 }
 
-class _HomeGalleryErrorWidget extends StatelessWidget {
+class _HomeGalleryError extends StatelessWidget {
   final GalleryErrorState error;
 
-  _HomeGalleryErrorWidget({
+  _HomeGalleryError({
     @required this.error,
   });
 

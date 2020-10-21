@@ -5,10 +5,10 @@ import 'package:epicture/screens/view.dart';
 class ScreenRepository {
   final Map<String, ScreenModel> _screens = {
     "/": ScreenModel(
-      builder: (_) => RootScreen(),
+      builder: (_) => RootScreenWidget(),
     ),
     "/view": ScreenModel(
-      builder: (_) => ViewScreen(),
+      builder: (_) => ViewScreenWidget(),
     ),
   };
 

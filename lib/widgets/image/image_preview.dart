@@ -1,4 +1,5 @@
 import 'package:epicture/models/image.dart';
+import 'package:epicture/widgets/video/video_preview.dart';
 import 'package:flutter/material.dart';
 
 class ImagePreviewWidget extends StatelessWidget {
@@ -10,6 +11,10 @@ class ImagePreviewWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    if (image.type.contains("video")) {
+      return VideoPreviewWidget(image: image);
+    }
+
     return Image.network(
       image.url,
       fit: BoxFit.cover,
