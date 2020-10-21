@@ -56,8 +56,8 @@ class GalleryItemRepository {
       queryParameters: {
         "title": title,
         "topic": topic,
-        "tags": tags,
-        "terms": 1,
+        "tags": tags?.toString(),
+        "terms": "1",
       },
     );
 
