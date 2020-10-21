@@ -2,11 +2,11 @@ import 'package:epicture/blocs/gallery_item.dart';
 import 'package:epicture/models/album.dart';
 import 'package:epicture/models/gallery_item.dart';
 import 'package:epicture/repositories/gallery_item.dart';
-import 'package:epicture/widgets/model/gallery_item_favorite_action.dart';
-import 'package:epicture/widgets/model/gallery_item_information.dart';
-import 'package:epicture/widgets/model/gallery_item_view.dart';
-import 'package:epicture/widgets/model/gallery_item_vote_actions.dart';
-import 'package:epicture/widgets/model/user_show.dart';
+import 'package:epicture/widgets/gallery_item/gallery_item_favorite_action.dart';
+import 'package:epicture/widgets/gallery_item/gallery_item_information.dart';
+import 'package:epicture/widgets/gallery_item/gallery_item_view.dart';
+import 'package:epicture/widgets/gallery_item/gallery_item_vote_actions.dart';
+import 'package:epicture/widgets/user/user_show.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 

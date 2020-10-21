@@ -14,6 +14,16 @@ class AlbumLoadingState extends AlbumState {
   const AlbumLoadingState();
 }
 
+class AlbumFavoritedState extends AlbumState {
+  final String id;
+  final bool favorited;
+
+  const AlbumFavoritedState({
+    @required this.id,
+    @required this.favorited,
+  });
+}
+
 class AlbumGotState extends AlbumState {
   final AlbumModel album;
 
