@@ -83,16 +83,18 @@ class ImgurClient {
       endpoint: endpoint,
       queryParameters: queryParameters,
       function: ({headers, uri}) async {
+        body.removeWhere((key, value) => (value == null));
+
         final fileBytes = await file.readAsBytes();
         final multipartFile = http.MultipartFile.fromBytes(
-          "image",
+          field,
           fileBytes,
           filename: file.path.split("/").last,
         );
         final request = http.MultipartRequest("POST", uri);
 
         request.headers.addAll(headers);
-        // request.fields.addAll(body);
+        request.fields.addAll(body);
         request.files.add(multipartFile);
 
         final streamedResponse = await request.send();

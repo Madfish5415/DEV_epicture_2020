@@ -2,6 +2,7 @@ import 'package:epicture/blocs/gallery_item.dart';
 import 'package:epicture/models/album.dart';
 import 'package:epicture/models/gallery_item.dart';
 import 'package:epicture/repositories/gallery_item.dart';
+import 'package:epicture/widgets/gallery_item/gallery_item_edit_action.dart';
 import 'package:epicture/widgets/gallery_item/gallery_item_favorite_action.dart';
 import 'package:epicture/widgets/gallery_item/gallery_item_information.dart';
 import 'package:epicture/widgets/gallery_item/gallery_item_view.dart';
@@ -93,10 +94,14 @@ class _ViewGalleryItemGot extends StatelessWidget {
                   galleryItem: galleryItem,
                   user: user,
                 ),
+                GalleryItemEditActionWidget(
+                  galleryItem: galleryItem,
+                  user: user,
+                )
               ],
             );
           },
-        )
+        ),
       ],
     );
   }
@@ -142,6 +147,16 @@ class _ViewImage extends StatelessWidget {
       children: [
         Expanded(child: GalleryItemViewWidget(galleryItem: galleryItem)),
         GalleryItemInformationWidget(galleryItem: galleryItem),
+        UserShowWidget(builder: (context, user) {
+          return Row(
+            children: [
+              GalleryItemEditActionWidget(
+                galleryItem: galleryItem,
+                user: user,
+              )
+            ],
+          );
+        }),
       ],
     );
   }
