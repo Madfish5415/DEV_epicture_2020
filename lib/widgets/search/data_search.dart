@@ -11,17 +11,22 @@ class DataSearch extends SearchDelegate<String> {
 
   @override
   List<Widget> buildActions(BuildContext context) {
-    //Actions for app bar
-    return [IconButton(icon: Icon(Icons.clear), onPressed: () {
-      query = '';
-    })];
+    return [
+      IconButton(
+        icon: Icon(Icons.clear),
+        onPressed: () {
+          query = '';
+        },
+      )
+    ];
   }
 
   @override
   Widget buildLeading(BuildContext context) {
     //leading icon on the left of the app bar
     return IconButton(
-        icon: AnimatedIcon(icon: AnimatedIcons.menu_arrow,
+        icon: AnimatedIcon(
+          icon: AnimatedIcons.menu_arrow,
           progress: transitionAnimation,
         ),
         onPressed: () {
@@ -31,11 +36,10 @@ class DataSearch extends SearchDelegate<String> {
 
   @override
   Widget buildResults(BuildContext context) {
-    // show some result based on the selection
-    
     return BlocProvider(
       create: (context) {
-        return GalleryBloc(GalleryRepository())..add(GallerySearchEvent(query: query));
+        return GalleryBloc(GalleryRepository())
+          ..add(GallerySearchEvent(query: query));
       },
       child: BlocBuilder<GalleryBloc, GalleryState>(
         builder: (context, state) {

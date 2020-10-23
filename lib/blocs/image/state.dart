@@ -15,9 +15,13 @@ class ImageLoadingState extends ImageState {
 }
 
 class ImageDeletedState extends ImageState {
-  final ImageModel image;
+  final String id;
+  final bool deleted;
 
-  const ImageDeletedState({@required this.image});
+  const ImageDeletedState({
+    @required this.id,
+    @required this.deleted,
+  });
 }
 
 class ImageFavoritedState extends ImageState {
@@ -37,9 +41,19 @@ class ImageGotState extends ImageState {
 }
 
 class ImageUpdatedState extends ImageState {
+  final String id;
+  final bool updated;
+
+  const ImageUpdatedState({
+    @required this.id,
+    @required this.updated,
+  });
+}
+
+class ImageUploadedState extends ImageState {
   final ImageModel image;
 
-  const ImageUpdatedState({@required this.image});
+  const ImageUploadedState({@required this.image});
 }
 
 class ImageErrorState extends ImageState {

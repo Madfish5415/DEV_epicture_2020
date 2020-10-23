@@ -34,13 +34,13 @@ class AccountRepository {
     return AccountModel.fromJson(response["data"]);
   }
 
-  Future<List<GalleryItemModel>> submissions({
+  Future<List<GalleryItemModel>> posts({
     @required String name,
     @required String token,
     int page = 0,
   }) async {
     final response = await ImgurClient.get(
-      endpoint: "/3/account/$name/submissions/$page",
+      endpoint: "/3/account/$name/images/$page",
       token: token,
     );
     final List<dynamic> jsonItemList = response["data"];

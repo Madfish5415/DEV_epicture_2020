@@ -5,13 +5,12 @@ import 'package:epicture/widgets/navigation/bottom_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-class RootScreen extends StatelessWidget {
+class RootScreenWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (_) {
-        return PageBloc(RootPageRepository())
-          ..add(PageGoToEvent(index: 0));
+      create: (context) {
+        return PageBloc(RootPageRepository())..add(PageGoToEvent(index: 0));
       },
       child: BlocBuilder<PageBloc, PageState>(
         builder: (context, state) {

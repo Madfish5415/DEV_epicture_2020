@@ -19,7 +19,7 @@ class GalleryItemInformationWidget extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
-            galleryItem.child.title,
+            galleryItem.child.title ?? "No title",
             style: Theme.of(context).textTheme.headline6,
           ),
           Text(
@@ -30,17 +30,17 @@ class GalleryItemInformationWidget extends StatelessWidget {
             children: [
               IconTextWidget(
                 icon: Icon(Icons.favorite_border),
-                text: Text(galleryItem.favorites.toString(),
+                text: Text(galleryItem.favorites?.toString() ?? "0",
                     style: TextStyle(fontSize: 16)),
               ),
               IconTextWidget(
                 icon: Icon(Icons.arrow_upward),
-                text: Text(galleryItem.ups.toString(),
+                text: Text(galleryItem.ups?.toString() ?? "0",
                     style: TextStyle(fontSize: 16)),
               ),
               IconTextWidget(
                 icon: Icon(Icons.arrow_downward),
-                text: Text(galleryItem.downs.toString(),
+                text: Text(galleryItem.downs?.toString() ?? "0",
                     style: TextStyle(fontSize: 16)),
               ),
             ],

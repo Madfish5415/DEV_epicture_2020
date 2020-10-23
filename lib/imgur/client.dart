@@ -27,7 +27,7 @@ class ImgurClient {
 
   static Future<Map<String, dynamic>> delete({
     @required String endpoint,
-    Map<String, dynamic> queryParameters,
+    Map<String, String> queryParameters,
     String token,
   }) {
     return _request(
@@ -57,7 +57,7 @@ class ImgurClient {
 
   static Future<Map<String, dynamic>> post({
     @required String endpoint,
-    Map<String, dynamic> queryParameters,
+    Map<String, String> queryParameters,
     Map<String, dynamic> body,
     String token,
   }) {
@@ -73,8 +73,8 @@ class ImgurClient {
 
   static Future<Map<String, dynamic>> postMultipart({
     @required String endpoint,
-    Map<String, dynamic> queryParameters,
-    Map<String, dynamic> body,
+    Map<String, String> queryParameters,
+    Map<String, String> body,
     String field,
     File file,
     String token,
@@ -83,12 +83,19 @@ class ImgurClient {
       endpoint: endpoint,
       queryParameters: queryParameters,
       function: ({headers, uri}) async {
+        body.removeWhere((key, value) => (value == null));
+
         final fileBytes = await file.readAsBytes();
+        final multipartFile = http.MultipartFile.fromBytes(
+          field,
+          fileBytes,
+          filename: file.path.split("/").last,
+        );
         final request = http.MultipartRequest("POST", uri);
 
         request.headers.addAll(headers);
         request.fields.addAll(body);
-        request.files.add(http.MultipartFile.fromBytes(field, fileBytes));
+        request.files.add(multipartFile);
 
         final streamedResponse = await request.send();
 
@@ -148,15 +155,15 @@ class ImgurClient {
       case 200:
         return json;
       case 400:
-        throw ImgurBadRequestException(json["error"]);
+        throw ImgurBadRequestException(json["data"]["error"]);
       case 401:
-        throw ImgurUnauthorisedException(json["error"]);
+        throw ImgurUnauthorisedException(json["data"]["error"]);
       case 403:
-        throw ImgurForbiddenException(json["error"]);
+        throw ImgurForbiddenException(json["data"]["error"]);
       case 404:
-        throw ImgurNotFoundException(json["error"]);
+        throw ImgurNotFoundException(json["data"]["error"]);
       default:
-        throw ImgurException(json["error"]);
+        throw ImgurException(json["data"]["error"]);
     }
   }
 }

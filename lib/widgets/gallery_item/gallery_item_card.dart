@@ -1,11 +1,10 @@
 import 'package:epicture/models/album.dart';
 import 'package:epicture/models/gallery_item.dart';
-import 'package:epicture/models/image.dart';
 import 'package:epicture/router.dart';
-import 'package:epicture/widgets/image/image_preview.dart';
-import 'package:epicture/widgets/video/video_preview.dart';
-import 'package:epicture/widgets/utility/elevation.dart';
+import 'package:epicture/widgets/album/album_preview.dart';
 import 'package:epicture/widgets/icon/icon_text.dart';
+import 'package:epicture/widgets/image/image_preview.dart';
+import 'package:epicture/widgets/utility/elevation.dart';
 import 'package:flutter/material.dart';
 
 class GalleryItemCard extends StatelessWidget {
@@ -33,7 +32,7 @@ class GalleryItemCard extends StatelessWidget {
               ),
             ],
           ),
-          _GalleryItemCardInkWellWidget(galleryItem: galleryItem),
+          _GalleryItemCardInkWell(galleryItem: galleryItem),
         ],
       ),
     );
@@ -49,15 +48,11 @@ class _GalleryItemCardImage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final ImageModel image = (child is AlbumModel)
-        ? child.images.firstWhere((element) => element.id == child.coverId)
-        : child;
-
-    if (image.type.contains("video")) {
-      return VideoPreviewWidget(image: image);
+    if (child is AlbumModel) {
+      return AlbumPreviewWidget(album: child);
     }
 
-    return ImagePreviewWidget(image: image);
+    return ImagePreviewWidget(image: child);
   }
 }
 
@@ -77,7 +72,7 @@ class _GalleryItemCardBottom extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
-            galleryItem.child.title,
+            galleryItem.child.title ?? "No title",
             softWrap: false,
             overflow: TextOverflow.fade,
           ),
@@ -85,15 +80,15 @@ class _GalleryItemCardBottom extends StatelessWidget {
             children: [
               IconTextWidget(
                 icon: Icon(Icons.favorite_border, size: 16),
-                text: Text(galleryItem.favorites.toString()),
+                text: Text(galleryItem.favorites?.toString() ?? "0"),
               ),
               IconTextWidget(
                 icon: Icon(Icons.arrow_upward, size: 16),
-                text: Text(galleryItem.ups.toString()),
+                text: Text(galleryItem.ups?.toString() ?? "0"),
               ),
               IconTextWidget(
                 icon: Icon(Icons.arrow_downward, size: 16),
-                text: Text(galleryItem.downs.toString()),
+                text: Text(galleryItem.downs?.toString() ?? "0"),
               ),
             ],
           ),
@@ -103,10 +98,10 @@ class _GalleryItemCardBottom extends StatelessWidget {
   }
 }
 
-class _GalleryItemCardInkWellWidget extends StatelessWidget {
+class _GalleryItemCardInkWell extends StatelessWidget {
   final GalleryItemModel galleryItem;
 
-  _GalleryItemCardInkWellWidget({
+  _GalleryItemCardInkWell({
     @required this.galleryItem,
   });
 

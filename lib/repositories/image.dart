@@ -5,7 +5,7 @@ import 'package:epicture/models/image.dart';
 import 'package:flutter/foundation.dart';
 
 class ImageRepository {
-  Future<ImageModel> delete({
+  Future<bool> delete({
     @required String id,
     @required String token,
   }) async {
@@ -13,8 +13,9 @@ class ImageRepository {
       endpoint: "/3/image/$id",
       token: token,
     );
+    final bool deleted = response["data"];
 
-    return ImageModel.fromJson(response["data"]);
+    return deleted;
   }
 
   Future<bool> favorite({
@@ -42,7 +43,7 @@ class ImageRepository {
     return ImageModel.fromJson(response["data"]);
   }
 
-  Future<ImageModel> update({
+  Future<bool> update({
     @required String id,
     @required String token,
     String title,
@@ -56,8 +57,9 @@ class ImageRepository {
         "description": description,
       },
     );
+    final bool updated = response["data"];
 
-    return ImageModel.fromJson(response["data"]);
+    return updated;
   }
 
   Future<ImageModel> upload({

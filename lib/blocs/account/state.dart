@@ -1,4 +1,6 @@
+import 'package:epicture/blocs/account.dart';
 import 'package:epicture/models/account.dart';
+import 'package:epicture/models/gallery_item.dart';
 import 'package:flutter/foundation.dart';
 
 abstract class AccountState {
@@ -19,8 +21,24 @@ class AccountGotState extends AccountState {
   const AccountGotState({@required this.account});
 }
 
+class AccountGotFavoritesState extends AccountState {
+  final List<GalleryItemModel> favorites;
+
+  const AccountGotFavoritesState({@required this.favorites});
+}
+
+class AccountGotPostsState extends AccountState {
+  final List<GalleryItemModel> posts;
+
+  const AccountGotPostsState({@required this.posts});
+}
+
 class AccountErrorState extends AccountState {
+  final AccountEvent event;
   final String message;
 
-  const AccountErrorState({this.message});
+  const AccountErrorState({
+    @required this.event,
+    this.message,
+  });
 }

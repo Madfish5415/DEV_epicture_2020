@@ -5,11 +5,11 @@ import 'package:epicture/repositories/image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-class ImageFavoriteAction extends StatelessWidget {
+class ImageFavoriteActionWidget extends StatelessWidget {
   final ImageModel image;
   final UserModel user;
 
-  ImageFavoriteAction({
+  ImageFavoriteActionWidget({
     @required this.image,
     @required this.user,
   });

@@ -26,17 +26,19 @@ class ImageBloc extends Bloc<ImageEvent, ImageState> {
       yield* _get(event);
     } else if (event is ImageUpdateEvent) {
       yield* _update(event);
+    } else if (event is ImageUploadEvent) {
+      yield* _upload(event);
     }
   }
 
   Stream<ImageState> _delete(ImageDeleteEvent event) async* {
     try {
-      final ImageModel image = await _repository.delete(
+      final bool deleted = await _repository.delete(
         id: event.id,
         token: event.token,
       );
 
-      yield ImageDeletedState(image: image);
+      yield ImageDeletedState(id: event.id, deleted: deleted);
     } on Exception catch (e) {
       yield ImageErrorState(
         event: event,
@@ -79,14 +81,35 @@ class ImageBloc extends Bloc<ImageEvent, ImageState> {
 
   Stream<ImageState> _update(ImageUpdateEvent event) async* {
     try {
-      final ImageModel image = await _repository.update(
+      final bool updated = await _repository.update(
         id: event.id,
         token: event.token,
         title: event.title,
         description: event.description,
       );
 
-      yield ImageUpdatedState(image: image);
+      print("update success");
+
+      yield ImageUpdatedState(id: event.id, updated: updated);
+    } on Exception catch (e) {
+      yield ImageErrorState(
+        event: event,
+        message: e.toString(),
+      );
+    }
+  }
+
+  Stream<ImageState> _upload(ImageUploadEvent event) async* {
+    try {
+      final ImageModel image = await _repository.upload(
+        token: event.token,
+        field: event.field,
+        file: event.file,
+        title: event.title,
+        description: event.description,
+      );
+
+      yield ImageUploadedState(image: image);
     } on Exception catch (e) {
       yield ImageErrorState(
         event: event,

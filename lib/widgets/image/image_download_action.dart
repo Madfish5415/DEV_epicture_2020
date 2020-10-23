@@ -4,10 +4,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_downloader/flutter_downloader.dart';
 import 'package:path_provider/path_provider.dart';
 
-class ImageDownloadButton extends StatelessWidget {
+class ImageDownloadActionWidget extends StatelessWidget {
   final String url;
 
-  ImageDownloadButton({
+  ImageDownloadActionWidget({
     @required this.url,
   });
 
@@ -19,11 +19,14 @@ class ImageDownloadButton extends StatelessWidget {
         try {
           final Directory downloadsDir = await getExternalStorageDirectory();
 
-          await FlutterDownloader.enqueue(url: url, savedDir: downloadsDir.path);
+          await FlutterDownloader.enqueue(
+              url: url, savedDir: downloadsDir.path);
 
-          Scaffold.of(context).showSnackBar(SnackBar(content: Text("Download: Started.")));
+          Scaffold.of(context)
+              .showSnackBar(SnackBar(content: Text("Download: Started.")));
         } catch (e) {
-          Scaffold.of(context).showSnackBar(SnackBar(content: Text("Download: Error.")));
+          Scaffold.of(context)
+              .showSnackBar(SnackBar(content: Text("Download: Error.")));
         }
       },
     );
