@@ -2,6 +2,7 @@ import 'package:epicture/blocs/gallery_tags.dart';
 import 'package:epicture/models/gallery_tag.dart';
 import 'package:epicture/repositories/gallery_tags.dart';
 import 'package:epicture/widgets/gallery_item/gallery_tag_card.dart';
+import 'package:epicture/widgets/search/data_search.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -16,6 +17,12 @@ class SearchPageWidget extends StatelessWidget {
       child: Scaffold(
         appBar: AppBar(
           title: Text("Search"),
+          actions: <Widget>[
+            IconButton(icon: Icon(Icons.search),
+                onPressed: () {
+                  showSearch(context: context, delegate: DataSearch());
+                })
+          ],
         ),
         body: BlocBuilder<GalleryTagsBloc, GalleryTagsState>(
           builder: (context, state) {
@@ -45,11 +52,11 @@ class _SearchGalleryTagsGot extends StatelessWidget {
     return GridView.builder(
       itemCount: galleryTags.length,
       gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-        crossAxisCount: 3,
+        crossAxisCount: 2,
         childAspectRatio: 1 / 1,
       ),
       itemBuilder: (context, index) {
-        return GalleryTagCard(galleryTags[index]);
+        return GalleryTagCard(galleryTag: galleryTags[index]);
       },
     );
   }
