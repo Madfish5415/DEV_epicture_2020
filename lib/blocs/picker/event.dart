@@ -1,4 +1,6 @@
-class PickerEvent {
+import 'package:epicture/blocs/common/event.dart';
+
+class PickerEvent extends Event {
   const PickerEvent();
 }
 

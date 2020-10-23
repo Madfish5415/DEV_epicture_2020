@@ -1,4 +1,5 @@
 import 'package:epicture/blocs/album.dart';
+import 'package:epicture/blocs/common/state.dart';
 import 'package:epicture/models/album.dart';
 import 'package:flutter/foundation.dart';
 
@@ -30,7 +31,7 @@ class AlbumGotState extends AlbumState {
   const AlbumGotState({@required this.album});
 }
 
-class AlbumErrorState extends AlbumState {
+class AlbumErrorState extends AlbumState implements ErrorState {
   final AlbumEvent event;
   final String message;
 

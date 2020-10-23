@@ -70,7 +70,7 @@ class _AccountInformation extends StatelessWidget {
           style: TextStyle(color: Colors.white),
         ),
         Text(
-          "${account.reputation} - ${account.reputationName}",
+          "${account.reputation ?? 0} - ${account.reputationName ?? "Unknown"}",
           style: TextStyle(color: Colors.white),
         ),
       ],

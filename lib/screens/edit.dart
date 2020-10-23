@@ -1,4 +1,5 @@
 import 'package:epicture/blocs/image.dart';
+import 'package:epicture/error/page.dart';
 import 'package:epicture/models/gallery_item.dart';
 import 'package:epicture/models/image.dart';
 import 'package:epicture/models/user.dart';
@@ -178,19 +179,11 @@ class _EditImageError extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Center(
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Text(error.message),
-          TextButton(
-            onPressed: () {
-              ImageBloc.of(context).add(error.event);
-            },
-            child: Text("Retry"),
-          ),
-        ],
-      ),
+    return PageErrorWidget(
+      error: error,
+      onPressed: () {
+        ImageBloc.of(context).add(error.event);
+      },
     );
   }
 }

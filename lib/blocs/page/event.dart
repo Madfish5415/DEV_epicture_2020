@@ -1,6 +1,7 @@
+import 'package:epicture/blocs/common/event.dart';
 import 'package:flutter/foundation.dart';
 
-abstract class PageEvent {
+abstract class PageEvent extends Event {
   const PageEvent();
 }
 

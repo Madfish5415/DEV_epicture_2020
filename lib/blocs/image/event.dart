@@ -1,8 +1,9 @@
 import 'dart:io';
 
+import 'package:epicture/blocs/common/event.dart';
 import 'package:flutter/foundation.dart';
 
-abstract class ImageEvent {
+abstract class ImageEvent extends Event {
   const ImageEvent();
 }
 

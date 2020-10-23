@@ -1,4 +1,5 @@
 import 'package:epicture/blocs/gallery_item.dart';
+import 'package:epicture/error/page.dart';
 import 'package:epicture/models/album.dart';
 import 'package:epicture/models/gallery_item.dart';
 import 'package:epicture/repositories/gallery_item.dart';
@@ -116,19 +117,11 @@ class _ViewGalleryItemError extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Center(
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Text(error.message),
-          TextButton(
-            onPressed: () {
-              GalleryItemBloc.of(context).add(error.event);
-            },
-            child: Text("Retry"),
-          ),
-        ],
-      ),
+    return PageErrorWidget(
+      error: error,
+      onPressed: () {
+        GalleryItemBloc.of(context).add(error.event);
+      },
     );
   }
 }

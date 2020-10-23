@@ -1,4 +1,5 @@
 import 'package:epicture/blocs/account.dart';
+import 'package:epicture/blocs/common/state.dart';
 import 'package:epicture/models/account.dart';
 import 'package:epicture/models/gallery_item.dart';
 import 'package:flutter/foundation.dart';
@@ -33,7 +34,7 @@ class AccountGotPostsState extends AccountState {
   const AccountGotPostsState({@required this.posts});
 }
 
-class AccountErrorState extends AccountState {
+class AccountErrorState extends AccountState implements ErrorState {
   final AccountEvent event;
   final String message;
 

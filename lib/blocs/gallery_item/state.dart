@@ -1,3 +1,4 @@
+import 'package:epicture/blocs/common/state.dart';
 import 'package:epicture/blocs/gallery_item/event.dart';
 import 'package:epicture/models/gallery_item.dart';
 import 'package:flutter/foundation.dart';
@@ -54,7 +55,7 @@ class GalleryItemVotedState extends GalleryItemState {
   });
 }
 
-class GalleryItemErrorState extends GalleryItemState {
+class GalleryItemErrorState extends GalleryItemState implements ErrorState {
   final GalleryItemEvent event;
   final String message;
 
