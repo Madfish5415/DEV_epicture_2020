@@ -18,7 +18,8 @@ class SearchPageWidget extends StatelessWidget {
         appBar: AppBar(
           title: Text("Search"),
           actions: <Widget>[
-            IconButton(icon: Icon(Icons.search),
+            IconButton(
+                icon: Icon(Icons.search),
                 onPressed: () {
                   showSearch(context: context, delegate: DataSearch());
                 })

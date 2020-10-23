@@ -49,7 +49,9 @@ class ProfileAccountPage extends StatelessWidget {
         ),
         floatingActionButton: FloatingActionButton(
           child: Icon(Icons.file_upload),
-          onPressed: () => AppRouter.navigator.pushNamed("/upload", arguments: user),
+          onPressed: () {
+            AppRouter.navigator.pushNamed("/upload", arguments: user);
+          },
         ),
       ),
     );
