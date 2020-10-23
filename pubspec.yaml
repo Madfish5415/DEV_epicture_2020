@@ -19,6 +19,7 @@ dependencies:
   http: ^0.12.2
   image_picker: ^0.6.7+12
   path_provider: ^1.6.21
+  palette_generator: ^0.2.3
 
 dev_dependencies:
   flutter_test:

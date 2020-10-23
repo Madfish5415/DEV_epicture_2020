@@ -1,6 +1,7 @@
 import 'package:epicture/models/screen.dart';
 import 'package:epicture/screens/edit.dart';
 import 'package:epicture/screens/root.dart';
+import 'package:epicture/screens/tag.dart';
 import 'package:epicture/screens/upload.dart';
 import 'package:epicture/screens/view.dart';
 
@@ -17,6 +18,9 @@ class ScreenRepository {
     ),
     "/upload": ScreenModel(
       builder: (_) => UploadScreenWidget(),
+    ),
+    "/tag": ScreenModel(
+      builder: (_) => TagScreen(),
     ),
   };
 

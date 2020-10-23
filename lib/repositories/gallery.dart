@@ -33,7 +33,7 @@ class GalleryRepository {
       endpoint: "/3/gallery/t/$tag/$sort/$window/$page",
       token: token,
     );
-    final List<dynamic> jsonItemList = response["data"];
+    final List<dynamic> jsonItemList = response["data"]["items"];
     final List<GalleryItemModel> gallery = jsonItemList
         .map((jsonItem) => GalleryItemModel.fromJson(jsonItem))
         .toList();
@@ -49,7 +49,7 @@ class GalleryRepository {
     String token,
   }) async {
     final response = await ImgurClient.get(
-      endpoint: "/3/gallery/t/search/$sort/$window/$page",
+      endpoint: "/3/gallery/search/$sort/$window/$page",
       queryParameters: {
         "q": query,
       },
