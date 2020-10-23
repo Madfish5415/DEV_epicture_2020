@@ -42,7 +42,7 @@ class ImgurClient {
 
   static Future<Map<String, dynamic>> get({
     @required String endpoint,
-    Map<String, dynamic> queryParameters,
+    Map<String, String> queryParameters,
     String token,
   }) {
     return _request(
@@ -100,7 +100,7 @@ class ImgurClient {
 
   static Future<Map<String, dynamic>> _request({
     @required String endpoint,
-    Map<String, dynamic> queryParameters,
+    Map<String, String> queryParameters,
     Future<http.Response> function({
       Uri uri,
       Map<String, dynamic> headers,
