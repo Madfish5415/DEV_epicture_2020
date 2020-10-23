@@ -33,7 +33,7 @@ class GalleryRepository {
       endpoint: "/3/gallery/t/$tag/$sort/$window/$page",
       token: token,
     );
-    final List<dynamic> jsonItemList = response["data"];
+    final List<dynamic> jsonItemList = response["data"]["items"];
     final List<GalleryItemModel> gallery = jsonItemList
         .map((jsonItem) => GalleryItemModel.fromJson(jsonItem))
         .toList();

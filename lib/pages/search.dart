@@ -35,7 +35,7 @@ class SearchPage extends StatelessWidget {
                         childAspectRatio: 1 / 1,
                       ),
                       itemBuilder: (context, index) {
-                        return GalleryTagCard(state.galleryTags[index]);
+                        return GalleryTagCard(galleryTag: state.galleryTags[index]);
                       },
                     );
                   }

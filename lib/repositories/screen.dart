@@ -1,5 +1,6 @@
 import 'package:epicture/models/screen.dart';
 import 'package:epicture/screens/root.dart';
+import 'package:epicture/screens/tag.dart';
 import 'package:epicture/screens/view.dart';
 
 class ScreenRepository {
@@ -9,6 +10,9 @@ class ScreenRepository {
     ),
     "/view": ScreenModel(
       builder: (_) => ViewScreen(),
+    ),
+    "/tag": ScreenModel(
+      builder: (_) => TagScreen(),
     ),
   };
 
