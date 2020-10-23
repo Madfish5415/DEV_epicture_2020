@@ -31,7 +31,7 @@ class SearchPage extends StatelessWidget {
                     return GridView.builder(
                       itemCount: state.galleryTags.length,
                       gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                        crossAxisCount: 3,
+                        crossAxisCount: 2,
                         childAspectRatio: 1 / 1,
                       ),
                       itemBuilder: (context, index) {
