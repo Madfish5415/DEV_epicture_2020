@@ -11,6 +11,12 @@ class GalleryTagsGridWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    if (galleryTags.isEmpty) {
+      return Center(
+        child: Text("No item found"),
+      );
+    }
+
     return GridView.builder(
       gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
         crossAxisCount: 2,

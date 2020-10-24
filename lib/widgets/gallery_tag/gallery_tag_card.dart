@@ -5,7 +5,9 @@ import 'package:epicture/repositories/image.dart';
 import 'package:epicture/router.dart';
 import 'package:epicture/utilities/palette.dart';
 import 'package:epicture/widgets/bloc/bloc_provider_builder.dart';
+import 'package:epicture/widgets/icon/icon_text.dart';
 import 'package:epicture/widgets/ink/ink_well.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -66,9 +68,8 @@ class _GalleryTagCardBody extends StatelessWidget {
             child: FutureBuilder(
               future: getImageDominantColor(image),
               builder: (context, snapshot) {
-                final Color dominantColor = (snapshot.hasData)
-                    ? snapshot.data
-                    : Colors.black;
+                final Color dominantColor =
+                    (snapshot.hasData) ? snapshot.data : Colors.black;
 
                 return Column(
                   children: [
@@ -113,12 +114,24 @@ class _GalleryTagCardBodyBottom extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       color: dominantColor,
-      child: Center(
-        child: Text(
-          galleryTag.followers.toString(),
-          style: TextStyle(color: Colors.white),
-        ),
-      ),
+      child: SizedBox.expand(
+          child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          IconTextWidget(
+              icon: Icon(
+                Icons.person,
+                color: Colors.white,
+              ),
+              text: Text(galleryTag.followers.toString())),
+          IconTextWidget(
+              icon: Icon(
+                Icons.image,
+                color: Colors.white,
+              ),
+              text: Text(galleryTag.items.toString())),
+        ],
+      )),
     );
   }
 }

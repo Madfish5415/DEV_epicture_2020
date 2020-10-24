@@ -82,13 +82,11 @@ class _ProfileAccountGot extends StatelessWidget {
           children: [
             AccountCardWidget(account: account),
             Container(
-              color: Colors.blueAccent,
               child: TabBar(
                 tabs: [
                   Tab(text: "Favorites"),
                   Tab(text: "Posts"),
                 ],
-                indicatorColor: Colors.white,
               ),
             ),
             Expanded(

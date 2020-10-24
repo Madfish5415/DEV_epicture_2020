@@ -128,7 +128,10 @@ class _HomeFilterDialogState extends State<_HomeFilterDialog> {
       ),
       actions: <Widget>[
         TextButton(
-          child: Text('Confirm'),
+          child: Text(
+            'Confirm',
+            style: TextStyle(color: Color(0xFFEE6002)),
+          ),
           onPressed: () {
             GalleryBloc.of(widget.context).add(GalleryGetEvent(
               section: _selection,
