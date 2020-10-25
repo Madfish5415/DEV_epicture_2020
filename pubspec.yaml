@@ -13,12 +13,19 @@ dependencies:
     sdk: flutter
 
   flutter_bloc: ^6.0.6
+  flutter_downloader: ^1.5.1
+  flutter_vlc_player: ^4.0.2
   flutter_web_auth: ^0.2.4
   http: ^0.12.2
+  image_picker: ^0.6.7+12
+  palette_generator: ^0.2.3
+  path_provider: ^1.6.21
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
 
 flutter:
+  assets:
+    - assets/
   uses-material-design: true

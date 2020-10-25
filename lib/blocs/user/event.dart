@@ -1,4 +1,6 @@
-abstract class UserEvent {
+import 'package:epicture/blocs/common/event.dart';
+
+abstract class UserEvent extends Event {
   const UserEvent();
 }
 

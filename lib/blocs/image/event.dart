@@ -1,11 +1,14 @@
+import 'dart:io';
+
+import 'package:epicture/blocs/common/event.dart';
 import 'package:flutter/foundation.dart';
 
-abstract class ImageEvent {
+abstract class ImageEvent extends Event {
   const ImageEvent();
 }
 
 class ImageDeleteEvent extends ImageEvent {
-  final int id;
+  final String id;
   final String token;
 
   const ImageDeleteEvent({
@@ -15,7 +18,7 @@ class ImageDeleteEvent extends ImageEvent {
 }
 
 class ImageFavoriteEvent extends ImageEvent {
-  final int id;
+  final String id;
   final String token;
 
   const ImageFavoriteEvent({
@@ -25,13 +28,17 @@ class ImageFavoriteEvent extends ImageEvent {
 }
 
 class ImageGetEvent extends ImageEvent {
-  final int id;
+  final String id;
+  final String token;
 
-  const ImageGetEvent({@required this.id});
+  const ImageGetEvent({
+    @required this.id,
+    this.token,
+  });
 }
 
 class ImageUpdateEvent extends ImageEvent {
-  final int id;
+  final String id;
   final String token;
   final String title;
   final String description;
@@ -39,6 +46,22 @@ class ImageUpdateEvent extends ImageEvent {
   const ImageUpdateEvent({
     @required this.id,
     @required this.token,
+    this.title,
+    this.description,
+  });
+}
+
+class ImageUploadEvent extends ImageEvent {
+  final String token;
+  final String field;
+  final File file;
+  final String title;
+  final String description;
+
+  const ImageUploadEvent({
+    @required this.token,
+    @required this.field,
+    @required this.file,
     this.title,
     this.description,
   });

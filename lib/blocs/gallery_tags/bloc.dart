@@ -25,11 +25,16 @@ class GalleryTagsBloc extends Bloc<GalleryTagsEvent, GalleryTagsState> {
 
   Stream<GalleryTagsState> _get(GalleryTagsGetEvent event) async* {
     try {
-      final List<GalleryTagModel> galleryTags = await _repository.get();
+      final List<GalleryTagModel> galleryTags = await _repository.get(
+        token: event.token,
+      );
 
       yield GalleryTagsGotState(galleryTags: galleryTags);
     } on Exception catch (e) {
-      yield GalleryTagsErrorState(message: e.toString());
+      yield GalleryTagsErrorState(
+        event: event,
+        message: e.toString(),
+      );
     }
   }
 }

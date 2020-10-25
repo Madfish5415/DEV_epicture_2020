@@ -1,4 +1,7 @@
+import 'package:epicture/blocs/common/state.dart';
+import 'package:epicture/blocs/user.dart';
 import 'package:epicture/models/user.dart';
+import 'package:flutter/foundation.dart';
 
 class UserState {
   const UserState();
@@ -15,15 +18,19 @@ class UserLoadingState extends UserState {
 class UserLoggedInState extends UserState {
   final UserModel user;
 
-  const UserLoggedInState(this.user);
+  const UserLoggedInState({@required this.user});
 }
 
 class UserLoggedOutState extends UserState {
   const UserLoggedOutState();
 }
 
-class UserErrorState extends UserState {
+class UserErrorState extends UserState implements ErrorState {
+  final UserEvent event;
   final String message;
 
-  const UserErrorState(this.message);
+  const UserErrorState({
+    @required this.event,
+    this.message,
+  });
 }

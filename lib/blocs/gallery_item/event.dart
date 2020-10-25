@@ -1,21 +1,36 @@
+import 'package:epicture/blocs/common/event.dart';
 import 'package:flutter/foundation.dart';
 
-abstract class GalleryItemEvent {
+abstract class GalleryItemEvent extends Event {
   const GalleryItemEvent();
+}
+
+class GalleryItemFavoriteEvent extends GalleryItemEvent {
+  final String type;
+  final String id;
+  final String token;
+
+  const GalleryItemFavoriteEvent({
+    @required this.type,
+    @required this.id,
+    this.token,
+  });
 }
 
 class GalleryItemGetEvent extends GalleryItemEvent {
   final String type;
-  final int id;
+  final String id;
+  final String token;
 
   const GalleryItemGetEvent({
     @required this.type,
     @required this.id,
+    this.token,
   });
 }
 
 class GalleryItemRemoveEvent extends GalleryItemEvent {
-  final int id;
+  final String id;
   final String token;
 
   const GalleryItemRemoveEvent({
@@ -26,7 +41,7 @@ class GalleryItemRemoveEvent extends GalleryItemEvent {
 
 class GalleryItemShareEvent extends GalleryItemEvent {
   final String type;
-  final int id;
+  final String id;
   final String token;
   final String title;
   final String topic;
@@ -43,7 +58,7 @@ class GalleryItemShareEvent extends GalleryItemEvent {
 }
 
 class GalleryItemVoteEvent extends GalleryItemEvent {
-  final int id;
+  final String id;
   final String vote;
   final String token;
 

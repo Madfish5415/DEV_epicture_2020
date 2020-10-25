@@ -1,11 +1,12 @@
 import 'package:flutter/foundation.dart';
 
 class ImageModel {
-  final int id;
+  final String id;
   final String url;
   final String type;
   final int width;
   final int height;
+  final int authorId;
   final String title;
   final String description;
   final int views;
@@ -17,6 +18,7 @@ class ImageModel {
     @required this.type,
     @required this.width,
     @required this.height,
+    this.authorId,
     this.title,
     this.description,
     this.views,
@@ -30,6 +32,7 @@ class ImageModel {
       type: json["type"],
       width: json["width"],
       height: json["height"],
+      authorId: json["account_id"],
       title: json["title"],
       description: json["description"],
       views: json["views"],
@@ -46,6 +49,7 @@ class ImageModel {
       "type": type,
       "width": width,
       "height": height,
+      "author_id": authorId,
       "title": title,
       "description": description,
       "views": views,

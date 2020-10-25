@@ -14,7 +14,7 @@ class AccountRepository {
       endpoint: "/3/account/$name/favorites/$page/$sort",
       token: token,
     );
-    final List<Map<String, dynamic>> jsonItemList = response["data"];
+    final List<dynamic> jsonItemList = response["data"];
     final List<GalleryItemModel> gallery = jsonItemList
         .map((jsonItem) => GalleryItemModel.fromJson(jsonItem))
         .toList();
@@ -34,16 +34,16 @@ class AccountRepository {
     return AccountModel.fromJson(response["data"]);
   }
 
-  Future<List<GalleryItemModel>> submissions({
+  Future<List<GalleryItemModel>> posts({
     @required String name,
     @required String token,
     int page = 0,
   }) async {
     final response = await ImgurClient.get(
-      endpoint: "/3/account/$name/submissions/$page",
+      endpoint: "/3/account/$name/images/$page",
       token: token,
     );
-    final List<Map<String, dynamic>> jsonItemList = response["data"];
+    final List<dynamic> jsonItemList = response["data"];
     final List<GalleryItemModel> gallery = jsonItemList
         .map((jsonItem) => GalleryItemModel.fromJson(jsonItem))
         .toList();

@@ -18,7 +18,9 @@ class GalleryItemBloc extends Bloc<GalleryItemEvent, GalleryItemState> {
   Stream<GalleryItemState> mapEventToState(GalleryItemEvent event) async* {
     yield GalleryItemLoadingState();
 
-    if (event is GalleryItemGetEvent) {
+    if (event is GalleryItemFavoriteEvent) {
+      yield* _favorite(event);
+    } else if (event is GalleryItemGetEvent) {
       yield* _get(event);
     } else if (event is GalleryItemRemoveEvent) {
       yield* _remove(event);
@@ -29,16 +31,37 @@ class GalleryItemBloc extends Bloc<GalleryItemEvent, GalleryItemState> {
     }
   }
 
+  Stream<GalleryItemState> _favorite(GalleryItemFavoriteEvent event) async* {
+    try {
+      final bool favorited = await _repository.favorite(
+        type: event.type,
+        id: event.id,
+        token: event.token,
+      );
+
+      yield GalleryItemFavoritedState(id: event.id, favorited: favorited);
+    } on Exception catch (e) {
+      yield GalleryItemErrorState(
+        event: event,
+        message: e.toString(),
+      );
+    }
+  }
+
   Stream<GalleryItemState> _get(GalleryItemGetEvent event) async* {
     try {
       final GalleryItemModel galleryItem = await _repository.get(
         type: event.type,
         id: event.id,
+        token: event.token,
       );
 
       yield GalleryItemGotState(galleryItem: galleryItem);
     } on Exception catch (e) {
-      yield GalleryItemErrorState(message: e.toString());
+      yield GalleryItemErrorState(
+        event: event,
+        message: e.toString(),
+      );
     }
   }
 
@@ -49,9 +72,12 @@ class GalleryItemBloc extends Bloc<GalleryItemEvent, GalleryItemState> {
         token: event.token,
       );
 
-      yield GalleryItemGotState(galleryItem: galleryItem);
+      yield GalleryItemRemovedState(galleryItem: galleryItem);
     } on Exception catch (e) {
-      yield GalleryItemErrorState(message: e.toString());
+      yield GalleryItemErrorState(
+        event: event,
+        message: e.toString(),
+      );
     }
   }
 
@@ -66,23 +92,29 @@ class GalleryItemBloc extends Bloc<GalleryItemEvent, GalleryItemState> {
         tags: event.tags,
       );
 
-      yield GalleryItemGotState(galleryItem: galleryItem);
+      yield GalleryItemSharedState(galleryItem: galleryItem);
     } on Exception catch (e) {
-      yield GalleryItemErrorState(message: e.toString());
+      yield GalleryItemErrorState(
+        event: event,
+        message: e.toString(),
+      );
     }
   }
 
   Stream<GalleryItemState> _vote(GalleryItemVoteEvent event) async* {
     try {
-      final GalleryItemModel galleryItem = await _repository.vote(
+      final bool voted = await _repository.vote(
         id: event.id,
         vote: event.vote,
         token: event.token,
       );
 
-      yield GalleryItemGotState(galleryItem: galleryItem);
+      yield GalleryItemVotedState(id: event.id, vote: event.vote, voted: voted);
     } on Exception catch (e) {
-      yield GalleryItemErrorState(message: e.toString());
+      yield GalleryItemErrorState(
+        event: event,
+        message: e.toString(),
+      );
     }
   }
 }

@@ -34,11 +34,15 @@ class GalleryBloc extends Bloc<GalleryEvent, GalleryState> {
         sort: event.sort,
         window: event.window,
         page: event.page,
+        token: event.token,
       );
 
       yield GalleryGotState(gallery: gallery);
     } on Exception catch (e) {
-      yield GalleryErrorState(message: e.toString());
+      yield GalleryErrorState(
+        event: event,
+        message: e.toString(),
+      );
     }
   }
 
@@ -49,11 +53,15 @@ class GalleryBloc extends Bloc<GalleryEvent, GalleryState> {
         sort: event.sort,
         window: event.window,
         page: event.page,
+        token: event.token,
       );
 
       yield GalleryGotState(gallery: gallery);
     } on Exception catch (e) {
-      yield GalleryErrorState(message: e.toString());
+      yield GalleryErrorState(
+        event: event,
+        message: e.toString(),
+      );
     }
   }
 
@@ -64,11 +72,15 @@ class GalleryBloc extends Bloc<GalleryEvent, GalleryState> {
         sort: event.sort,
         window: event.window,
         page: event.page,
+        token: event.token,
       );
 
       yield GalleryGotState(gallery: gallery);
     } on Exception catch (e) {
-      yield GalleryErrorState(message: e.toString());
+      yield GalleryErrorState(
+        event: event,
+        message: e.toString(),
+      );
     }
   }
 }

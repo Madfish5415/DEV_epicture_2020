@@ -8,11 +8,13 @@ class GalleryRepository {
     String sort = "viral",
     String window = "day",
     int page = 0,
+    String token,
   }) async {
     final response = await ImgurClient.get(
       endpoint: "/3/gallery/$section/$sort/$window/$page",
+      token: token,
     );
-    final List<Map<String, dynamic>> jsonItemList = response["data"];
+    final List<dynamic> jsonItemList = response["data"];
     final List<GalleryItemModel> gallery = jsonItemList
         .map((jsonItem) => GalleryItemModel.fromJson(jsonItem))
         .toList();
@@ -25,11 +27,13 @@ class GalleryRepository {
     String sort = "viral",
     String window = "day",
     int page = 0,
+    String token,
   }) async {
     final response = await ImgurClient.get(
       endpoint: "/3/gallery/t/$tag/$sort/$window/$page",
+      token: token,
     );
-    final List<Map<String, dynamic>> jsonItemList = response["data"];
+    final List<dynamic> jsonItemList = response["data"]["items"];
     final List<GalleryItemModel> gallery = jsonItemList
         .map((jsonItem) => GalleryItemModel.fromJson(jsonItem))
         .toList();
@@ -42,14 +46,16 @@ class GalleryRepository {
     String sort = "viral",
     String window = "day",
     int page = 0,
+    String token,
   }) async {
     final response = await ImgurClient.get(
-      endpoint: "/3/gallery/t/search/$sort/$window/$page",
+      endpoint: "/3/gallery/search/$sort/$window/$page",
       queryParameters: {
         "q": query,
       },
+      token: token,
     );
-    final List<Map<String, dynamic>> jsonItemList = response["data"];
+    final List<dynamic> jsonItemList = response["data"];
     final List<GalleryItemModel> gallery = jsonItemList
         .map((jsonItem) => GalleryItemModel.fromJson(jsonItem))
         .toList();

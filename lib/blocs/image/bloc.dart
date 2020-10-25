@@ -26,57 +26,95 @@ class ImageBloc extends Bloc<ImageEvent, ImageState> {
       yield* _get(event);
     } else if (event is ImageUpdateEvent) {
       yield* _update(event);
+    } else if (event is ImageUploadEvent) {
+      yield* _upload(event);
     }
   }
 
   Stream<ImageState> _delete(ImageDeleteEvent event) async* {
     try {
-      final ImageModel image = await _repository.delete(
+      final bool deleted = await _repository.delete(
         id: event.id,
         token: event.token,
       );
 
-      yield ImageGotState(image: image);
+      yield ImageDeletedState(id: event.id, deleted: deleted);
     } on Exception catch (e) {
-      yield ImageErrorState(message: e.toString());
+      yield ImageErrorState(
+        event: event,
+        message: e.toString(),
+      );
     }
   }
 
   Stream<ImageState> _favorite(ImageFavoriteEvent event) async* {
     try {
-      final ImageModel image = await _repository.favorite(
+      final bool favorited = await _repository.favorite(
+        id: event.id,
+        token: event.token,
+      );
+
+      yield ImageFavoritedState(id: event.id, favorited: favorited);
+    } on Exception catch (e) {
+      yield ImageErrorState(
+        event: event,
+        message: e.toString(),
+      );
+    }
+  }
+
+  Stream<ImageState> _get(ImageGetEvent event) async* {
+    try {
+      final ImageModel image = await _repository.get(
         id: event.id,
         token: event.token,
       );
 
       yield ImageGotState(image: image);
     } on Exception catch (e) {
-      yield ImageErrorState(message: e.toString());
-    }
-  }
-
-  Stream<ImageState> _get(ImageGetEvent event) async* {
-    try {
-      final ImageModel image = await _repository.get(id: event.id);
-
-      yield ImageGotState(image: image);
-    } on Exception catch (e) {
-      yield ImageErrorState(message: e.toString());
+      yield ImageErrorState(
+        event: event,
+        message: e.toString(),
+      );
     }
   }
 
   Stream<ImageState> _update(ImageUpdateEvent event) async* {
     try {
-      final ImageModel image = await _repository.update(
+      final bool updated = await _repository.update(
         id: event.id,
         token: event.token,
         title: event.title,
         description: event.description,
       );
 
-      yield ImageGotState(image: image);
+      print("update success");
+
+      yield ImageUpdatedState(id: event.id, updated: updated);
     } on Exception catch (e) {
-      yield ImageErrorState(message: e.toString());
+      yield ImageErrorState(
+        event: event,
+        message: e.toString(),
+      );
+    }
+  }
+
+  Stream<ImageState> _upload(ImageUploadEvent event) async* {
+    try {
+      final ImageModel image = await _repository.upload(
+        token: event.token,
+        field: event.field,
+        file: event.file,
+        title: event.title,
+        description: event.description,
+      );
+
+      yield ImageUploadedState(image: image);
+    } on Exception catch (e) {
+      yield ImageErrorState(
+        event: event,
+        message: e.toString(),
+      );
     }
   }
 }

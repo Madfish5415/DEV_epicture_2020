@@ -1,3 +1,5 @@
+import 'package:epicture/blocs/common/state.dart';
+import 'package:epicture/blocs/image.dart';
 import 'package:epicture/models/image.dart';
 import 'package:flutter/foundation.dart';
 
@@ -14,15 +16,23 @@ class ImageLoadingState extends ImageState {
 }
 
 class ImageDeletedState extends ImageState {
-  final ImageModel image;
+  final String id;
+  final bool deleted;
 
-  const ImageDeletedState({@required this.image});
+  const ImageDeletedState({
+    @required this.id,
+    @required this.deleted,
+  });
 }
 
 class ImageFavoritedState extends ImageState {
-  final ImageModel image;
+  final String id;
+  final bool favorited;
 
-  const ImageFavoritedState({@required this.image});
+  const ImageFavoritedState({
+    @required this.id,
+    @required this.favorited,
+  });
 }
 
 class ImageGotState extends ImageState {
@@ -32,13 +42,27 @@ class ImageGotState extends ImageState {
 }
 
 class ImageUpdatedState extends ImageState {
-  final ImageModel image;
+  final String id;
+  final bool updated;
 
-  const ImageUpdatedState({@required this.image});
+  const ImageUpdatedState({
+    @required this.id,
+    @required this.updated,
+  });
 }
 
-class ImageErrorState extends ImageState {
+class ImageUploadedState extends ImageState {
+  final ImageModel image;
+
+  const ImageUploadedState({@required this.image});
+}
+
+class ImageErrorState extends ImageState implements ErrorState {
+  final ImageEvent event;
   final String message;
 
-  const ImageErrorState({this.message});
+  const ImageErrorState({
+    @required this.event,
+    this.message,
+  });
 }
