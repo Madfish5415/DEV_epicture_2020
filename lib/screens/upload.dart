@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:epicture/blocs/image.dart';
 import 'package:epicture/blocs/picker.dart';
+import 'package:epicture/error/page.dart';
 import 'package:epicture/models/gallery_item.dart';
 import 'package:epicture/models/user.dart';
 import 'package:epicture/repositories/image.dart';
@@ -127,19 +128,11 @@ class _UploadPickerError extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Center(
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Text(error.message),
-          TextButton(
-            onPressed: () {
-              PickerBloc.of(context).add(error.event);
-            },
-            child: Text("Retry"),
-          ),
-        ],
-      ),
+    return PageErrorWidget(
+      error: error,
+      onPressed: () {
+        PickerBloc.of(context).add(error.event);
+      },
     );
   }
 }
@@ -248,19 +241,11 @@ class _UploadImageError extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Center(
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Text(error.message),
-          TextButton(
-            onPressed: () {
-              ImageBloc.of(context).add(error.event);
-            },
-            child: Text("Retry"),
-          ),
-        ],
-      ),
+    return PageErrorWidget(
+      error: error,
+      onPressed: () {
+        ImageBloc.of(context).add(error.event);
+      },
     );
   }
 }

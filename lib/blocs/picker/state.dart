@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:epicture/blocs/common/state.dart';
 import 'package:epicture/blocs/picker.dart';
 import 'package:flutter/foundation.dart';
 
@@ -21,7 +22,7 @@ class PickerGotState extends PickerState {
   const PickerGotState({@required this.file});
 }
 
-class PickerErrorState extends PickerState {
+class PickerErrorState extends PickerState implements ErrorState {
   final PickerEvent event;
   final String message;
 

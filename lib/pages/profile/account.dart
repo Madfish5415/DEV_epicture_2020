@@ -1,5 +1,6 @@
 import 'package:epicture/blocs/account.dart';
 import 'package:epicture/blocs/user.dart';
+import 'package:epicture/error/page.dart';
 import 'package:epicture/models/account.dart';
 import 'package:epicture/models/user.dart';
 import 'package:epicture/pages/profile/account/favorites.dart';
@@ -41,7 +42,12 @@ class ProfileAccountPage extends StatelessWidget {
             if (state is AccountGotState) {
               return _ProfileAccountGot(account: state.account, user: user);
             } else if (state is AccountErrorState) {
-              return _ProfileAccountError(error: state);
+              return PageErrorWidget(
+                error: state,
+                onPressed: () {
+                  AccountBloc.of(context).add(state.event);
+                },
+              );
             }
 
             return Center(child: CircularProgressIndicator());
@@ -76,13 +82,11 @@ class _ProfileAccountGot extends StatelessWidget {
           children: [
             AccountCardWidget(account: account),
             Container(
-              color: Colors.blueAccent,
               child: TabBar(
                 tabs: [
                   Tab(text: "Favorites"),
                   Tab(text: "Posts"),
                 ],
-                indicatorColor: Colors.white,
               ),
             ),
             Expanded(
@@ -95,32 +99,6 @@ class _ProfileAccountGot extends StatelessWidget {
             ),
           ],
         ),
-      ),
-    );
-  }
-}
-
-class _ProfileAccountError extends StatelessWidget {
-  final AccountErrorState error;
-
-  _ProfileAccountError({
-    @required this.error,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return Center(
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Text(error.message),
-          TextButton(
-            onPressed: () {
-              AccountBloc.of(context).add(error.event);
-            },
-            child: Text("Retry"),
-          ),
-        ],
       ),
     );
   }

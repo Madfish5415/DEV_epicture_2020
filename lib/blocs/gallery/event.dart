@@ -1,6 +1,7 @@
+import 'package:epicture/blocs/common/event.dart';
 import 'package:flutter/foundation.dart';
 
-abstract class GalleryEvent {
+abstract class GalleryEvent extends Event {
   const GalleryEvent();
 }
 

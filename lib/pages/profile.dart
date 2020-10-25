@@ -1,4 +1,5 @@
 import 'package:epicture/blocs/user.dart';
+import 'package:epicture/error/page.dart';
 import 'package:epicture/models/user.dart';
 import 'package:epicture/pages/profile/account.dart';
 import 'package:epicture/pages/profile/login.dart';
@@ -53,19 +54,11 @@ class _ProfileUserError extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Center(
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Text(error.message),
-          TextButton(
-            onPressed: () {
-              UserBloc.of(context).add(error.event);
-            },
-            child: Text("Retry"),
-          ),
-        ],
-      ),
+    return PageErrorWidget(
+      error: error,
+      onPressed: () {
+        UserBloc.of(context).add(error.event);
+      },
     );
   }
 }

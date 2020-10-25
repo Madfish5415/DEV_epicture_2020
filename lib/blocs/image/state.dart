@@ -1,3 +1,4 @@
+import 'package:epicture/blocs/common/state.dart';
 import 'package:epicture/blocs/image.dart';
 import 'package:epicture/models/image.dart';
 import 'package:flutter/foundation.dart';
@@ -56,7 +57,7 @@ class ImageUploadedState extends ImageState {
   const ImageUploadedState({@required this.image});
 }
 
-class ImageErrorState extends ImageState {
+class ImageErrorState extends ImageState implements ErrorState {
   final ImageEvent event;
   final String message;
 
