@@ -9,7 +9,11 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 class DataSearch extends SearchDelegate<String> {
 @override
   ThemeData appBarTheme(BuildContext context) {
-    return Theme.of(context);
+    return Theme.of(context).copyWith(
+      primaryTextTheme: TextTheme(
+
+      )
+    );
   }
 
   @override
