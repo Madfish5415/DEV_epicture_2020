@@ -6,38 +6,39 @@ class AppThemer {
   static final accentColor = Color(0xFFEE6002);
   static final primaryColor = Color(0xFFB42E00);
 
-  static final ThemeData dark = ThemeData(
+  static final ThemeData dark = ThemeData.dark().copyWith(
     accentColor: accentColor,
     primaryColor: primaryColor,
     primaryColorLight: primaryColor,
-    backgroundColor: ThemeData.dark().scaffoldBackgroundColor,
-    scaffoldBackgroundColor: ThemeData.dark().scaffoldBackgroundColor,
-    bottomAppBarColor: ThemeData.dark().bottomAppBarColor,
+    primaryColorDark: primaryColor,
+    appBarTheme: ThemeData.dark().appBarTheme.copyWith(
+      color: primaryColor,
+    ),
     bottomNavigationBarTheme:
-        ThemeData.dark().bottomNavigationBarTheme.copyWith(
-              selectedItemColor: Colors.white,
-              backgroundColor: primaryColor,
-            ),
+    ThemeData.dark().bottomNavigationBarTheme.copyWith(
+      selectedItemColor: Colors.white,
+      backgroundColor: primaryColor,
+    ),
     buttonTheme: ThemeData.dark().buttonTheme.copyWith(
-          buttonColor: accentColor,
-          textTheme: ButtonTextTheme.primary,
-        ),
-    cardColor: ThemeData.dark().cardColor,
-    dialogTheme: ThemeData.dark().dialogTheme,
-    dialogBackgroundColor: ThemeData.dark().dialogBackgroundColor,
+      buttonColor: accentColor,
+      textTheme: ButtonTextTheme.primary,
+    ),
+    cursorColor: Colors.white,
+    floatingActionButtonTheme: ThemeData.dark().floatingActionButtonTheme.copyWith(
+      backgroundColor: accentColor,
+      foregroundColor: Colors.white,
+    ),
     iconTheme: ThemeData.dark().iconTheme.copyWith(
+      color: accentColor,
+    ),
+    tabBarTheme: ThemeData.dark().tabBarTheme.copyWith(
+      indicator: UnderlineTabIndicator(
+        borderSide: BorderSide(
           color: accentColor,
+          width: 3.0,
         ),
-    primaryTextTheme: ThemeData.dark().primaryTextTheme.copyWith(
-          button: TextStyle(
-            color: accentColor,
-          ),
-        ),
-    textTheme: ThemeData.dark().textTheme.copyWith(
-          button: TextStyle(
-            color: accentColor,
-          ),
-        ),
-    unselectedWidgetColor: ThemeData.dark().unselectedWidgetColor,
+      ),
+    ),
+    toggleableActiveColor: accentColor,
   );
 }

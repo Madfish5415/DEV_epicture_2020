@@ -60,7 +60,7 @@ class _ImageFavoriteButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return IconButton(
       icon: Icon((!state) ? Icons.favorite_border : Icons.favorite),
-      color: (!state) ? Colors.black : Colors.red,
+      color: (!state) ? Theme.of(context).iconTheme.color : Colors.red,
       onPressed: () {
         ImageBloc.of(context).add(
           ImageFavoriteEvent(
