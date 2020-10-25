@@ -71,7 +71,7 @@ class _ImageItemActionsUpVoteButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return IconButton(
       icon: Icon(Icons.arrow_upward),
-      color: (!state) ? Colors.black : Colors.green,
+      color: (!state) ? Theme.of(context).iconTheme.color : Colors.green,
       onPressed: () {
         GalleryItemBloc.of(context).add(
           GalleryItemVoteEvent(
@@ -100,7 +100,7 @@ class _ImageItemActionsDownVoteButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return IconButton(
       icon: Icon(Icons.arrow_downward),
-      color: (!state) ? Colors.black : Colors.red,
+      color: (!state) ? Theme.of(context).iconTheme.color : Colors.red,
       onPressed: () {
         GalleryItemBloc.of(context).add(
           GalleryItemVoteEvent(

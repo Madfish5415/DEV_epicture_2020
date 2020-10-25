@@ -15,8 +15,11 @@ class ImagePreviewWidget extends StatelessWidget {
       return VideoPreviewWidget(image: image);
     }
 
+    final mediaWidth = MediaQuery.of(context).size.width;
+
     return Image.network(
       image.url,
+      cacheWidth: mediaWidth.toInt(),
       fit: BoxFit.cover,
       loadingBuilder: _loading,
     );

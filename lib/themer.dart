@@ -12,6 +12,9 @@ class AppThemer {
     primaryColorLight: primaryColor,
     backgroundColor: ThemeData.dark().scaffoldBackgroundColor,
     scaffoldBackgroundColor: ThemeData.dark().scaffoldBackgroundColor,
+    appBarTheme: ThemeData.dark().appBarTheme.copyWith(
+          color: primaryColor,
+        ),
     bottomAppBarColor: ThemeData.dark().bottomAppBarColor,
     bottomNavigationBarTheme:
         ThemeData.dark().bottomNavigationBarTheme.copyWith(

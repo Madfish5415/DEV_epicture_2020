@@ -43,7 +43,6 @@ class _GalleryItemEditButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return IconButton(
       icon: Icon(Icons.edit),
-      color: Colors.black,
       onPressed: () {
         AppRouter.navigator.pushReplacementNamed(
           "/edit",

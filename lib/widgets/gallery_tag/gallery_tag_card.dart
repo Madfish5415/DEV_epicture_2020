@@ -56,20 +56,25 @@ class _GalleryTagCardBody extends StatelessWidget {
     return BlocBuilder<ImageBloc, ImageState>(
       builder: (context, state) {
         if (state is ImageGotState) {
-          final image = NetworkImage(state.image.url);
+          final mediaWidth = MediaQuery.of(context).size.width;
+          final image = Image.network(
+            state.image.url,
+            cacheWidth: mediaWidth.toInt(),
+          );
 
           return Container(
             decoration: BoxDecoration(
               image: DecorationImage(
-                image: image,
+                image: image.image,
                 fit: BoxFit.cover,
               ),
             ),
             child: FutureBuilder(
-              future: getImageDominantColor(image),
+              future: getImageDominantColor(image.image),
               builder: (context, snapshot) {
-                final Color dominantColor =
-                    (snapshot.hasData) ? snapshot.data : Colors.black;
+                final Color dominantColor = (snapshot.hasData)
+                    ? snapshot.data
+                    : Theme.of(context).primaryColor;
 
                 return Column(
                   children: [

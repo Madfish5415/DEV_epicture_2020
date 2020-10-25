@@ -11,6 +11,8 @@ class ImageViewWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final screenWidth = MediaQuery.of(context).size.width;
+    final deviceRatio = MediaQuery.of(context).devicePixelRatio;
+    final deviceWidth = screenWidth * deviceRatio;
     final ratio = screenWidth / image.width;
 
     return Container(
@@ -18,6 +20,7 @@ class ImageViewWidget extends StatelessWidget {
       height: image.height * ratio,
       child: Image.network(
         image.url,
+        cacheWidth: deviceWidth.toInt(),
         fit: BoxFit.cover,
         loadingBuilder: _loading,
       ),

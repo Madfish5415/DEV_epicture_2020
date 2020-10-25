@@ -2,12 +2,15 @@ import 'package:epicture/blocs/gallery.dart';
 import 'package:epicture/blocs/gallery/bloc.dart';
 import 'package:epicture/blocs/gallery/event.dart';
 import 'package:epicture/repositories/gallery.dart';
-import 'package:epicture/widgets/gallery_item/gallery_item_card.dart';
+import 'package:epicture/widgets/gallery/gallery_grid.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class DataSearch extends SearchDelegate<String> {
-  DataSearch();
+@override
+  ThemeData appBarTheme(BuildContext context) {
+    return Theme.of(context);
+  }
 
   @override
   List<Widget> buildActions(BuildContext context) {
@@ -44,18 +47,7 @@ class DataSearch extends SearchDelegate<String> {
       child: BlocBuilder<GalleryBloc, GalleryState>(
         builder: (context, state) {
           if (state is GalleryGotState) {
-            return GridView.builder(
-              gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                crossAxisCount: 2,
-                childAspectRatio: 8 / 10,
-              ),
-              itemCount: state.gallery.length,
-              itemBuilder: (context, index) {
-                return GalleryItemCard(
-                  galleryItem: state.gallery[index],
-                );
-              },
-            );
+            return GalleryGridWidget(gallery: state.gallery);
           }
           return Center(child: CircularProgressIndicator());
         },
